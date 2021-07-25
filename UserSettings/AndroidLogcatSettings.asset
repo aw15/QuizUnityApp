@@ -1,0 +1,149 @@
+{
+    "m_SelectedDeviceId": "R39M601RFXX",
+    "m_SelectedPackage": {
+        "deviceId": "R39M601RFXX",
+        "name": "com.SoboroBreadStudio.EthicQuiz",
+        "processId": 13219,
+        "exited": false
+    },
+    "m_SelectedPriority": 0,
+    "m_KnownPackagesForSerialization": [
+        {
+            "deviceId": "emulator-5554",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 6044,
+            "exited": true
+        },
+        {
+            "deviceId": "emulator-5554",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 8016,
+            "exited": true
+        },
+        {
+            "deviceId": "emulator-5554",
+            "name": "com.google.android.apps.nexuslauncher",
+            "processId": 1070,
+            "exited": false
+        },
+        {
+            "deviceId": "emulator-5554",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 5547,
+            "exited": false
+        },
+        {
+            "deviceId": "emulator-5554",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 4642,
+            "exited": false
+        },
+        {
+            "deviceId": "emulator-5554",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 4876,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 27195,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 22226,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 22931,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 23372,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 23998,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 30924,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 14046,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 13219,
+            "exited": false
+        }
+    ],
+    "m_Tags": {
+        "m_Entries": [
+            {
+                "m_Name": "Filter by all listed tags",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "No Filter",
+                "m_Selected": true
+            },
+            {
+                "m_Name": "",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "Tag Control...",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "Unity",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "CRASH",
+                "m_Selected": false
+            }
+        ]
+    },
+    "m_MemoryViewerState": {
+        "MemoryWindowHeight": 300.0,
+        "MemoryWindowWidth": 170.0,
+        "MemoryTypeEnabled": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        ],
+        "MemoryGroup": 2,
+        "Behavior": 0
+    },
+    "m_Filter": "",
+    "m_FilterIsRegularExpression": false,
+    "m_SymbolPaths": []
+}

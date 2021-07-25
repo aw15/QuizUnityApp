@@ -1,0 +1,152 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1276003211521490275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1276003211521490274}
+  - component: {fileID: 1276003211521490277}
+  - component: {fileID: 1276003211521490276}
+  - component: {fileID: 1276003211521490279}
+  - component: {fileID: 1276003211521490278}
+  - component: {fileID: 1276003211521490281}
+  - component: {fileID: 1276003211521490280}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1276003211521490274
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276003211521490275}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.294827, y: 2.0749989, z: 27.636055}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1276003211521490277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276003211521490275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16dae2dbe17d4a8592d65605ed2a4d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 7889367384777260562, guid: a3eda3ecbc1b6bb40a7ac5aeb5862270, type: 3}
+  Canvas: {fileID: 0}
+  Type: 5
+  Position: 3
+  Duration: 2
+  Title: Test
+  Message: Test
+--- !u!114 &1276003211521490276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276003211521490275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8791cf44355fd7840804a349fd7cdb67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notificationPrefs:
+  - {fileID: 1149382365539815857, guid: fa6a9bde13a49e14ead844c6a29408df, type: 3}
+  - {fileID: 530343019555397815, guid: 18e173b608e7b2f4bae1ace29e3c11f2, type: 3}
+  - {fileID: 5015828711871478675, guid: 49b0a944bee7d93498dfaad6b6a3c18d, type: 3}
+  notificationLauncher: {fileID: 1276003211521490277}
+--- !u!114 &1276003211521490279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276003211521490275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c02c5a15bb31a874889af4b5b1bd5d12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelRef: {fileID: 0}
+  loginBtn: {fileID: 0}
+  registerBtn: {fileID: 0}
+  findPwBtn: {fileID: 0}
+  rememberToggle: {fileID: 0}
+  emailUI: {fileID: 0}
+  pwUI: {fileID: 0}
+--- !u!114 &1276003211521490278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276003211521490275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03d45a50f531654098354a20b2a2695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelRef: {fileID: 0}
+  registerButtonRef: {fileID: 0}
+--- !u!114 &1276003211521490281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276003211521490275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 850458106d404584aad6cfdbc1a37c6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelRef: {fileID: 0}
+  searchInputField: {fileID: 0}
+  candidataText: {fileID: 0}
+  problemCountSlider: {fileID: 0}
+  philosopherPref: {fileID: 1303374105271292833, guid: e3aeb2a89ae63e140bd6e192afd480c8, type: 3}
+  gridLayout: {fileID: 0}
+--- !u!114 &1276003211521490280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276003211521490275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 764c9f640f499dd48b1e635766169822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelRef: {fileID: 0}
+  QuizPanel: {fileID: 0}
+  countUIOnQuiz: {fileID: 0}
+  correctBtn: {fileID: 0}
+  wrongBtn: {fileID: 0}
+  sourceText: {fileID: 0}
+  quizText: {fileID: 0}
+  DescPanel: {fileID: 0}
+  nextBtn: {fileID: 0}
+  bookmarkBtn: {fileID: 0}
+  descText: {fileID: 0}
+  wrongHighlight: {fileID: 0}
+  countUIOnDesc: {fileID: 0}
+  successSound: {fileID: 0}
+  failSound: {fileID: 0}

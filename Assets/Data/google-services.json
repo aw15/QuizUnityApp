@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "584764138257",
+    "project_id": "soborobreadstudio",
+    "storage_bucket": "soborobreadstudio.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584764138257:android:53c67160278cf60d68a2b0",
+        "android_client_info": {
+          "package_name": "com.SoboroBreadStudio.EthicQuiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "584764138257-gb6apn9s7omeb63pbvd13ub7ti2jgkbm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlRybteQkCWEmbEC9iHVGMR3QDcB7ozCE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "584764138257-gb6apn9s7omeb63pbvd13ub7ti2jgkbm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "584764138257-ttggnc0bopsoegkirj89b7k7eq2l4im4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.SoboroBreadStudio.EthicQuiz"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
