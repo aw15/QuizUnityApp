@@ -12,6 +12,11 @@ public class RegisterPanel : IPanel
     {
         UIManager.Ins.AddPanel("RegisterPanel", this);
         Hide();
+        registerButtonRef.onClick.AddListener(OnRegisterBtnClicked);
+    }
+    private void OnDestroy()
+    {
+        registerButtonRef.onClick.RemoveListener(OnRegisterBtnClicked);
     }
 #if UNITY_EDITOR
     private void OnEnable()

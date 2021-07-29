@@ -27,13 +27,21 @@ namespace Assets.Content.Script
         {
             UIManager.Ins.AddPanel("LoginPanel", this);
             UIManager.Ins.PushPanel("LoginPanel");
-            rememberToggle.onValueChanged.AddListener(OnRememberToggleChanged);
+
             rememberToggle.isOn = PlayerPrefs.GetInt(rememberLoginInfoKey, 0) == 0 ? false : true;
             if (rememberToggle.isOn)
             {
                 emailUI.text = PlayerPrefs.GetString(emailKey, string.Empty);
                 pwUI.text = PlayerPrefs.GetString(passwordKey, string.Empty);
             }
+            rememberToggle.onValueChanged.AddListener(OnRememberToggleChanged);
+            loginBtn.onClick.AddListener(OnLoginBtnClicked);
+            registerBtn.onClick.AddListener(OnRegisterBtnClicked);
+        }
+        private void OnDestroy()
+        {
+            loginBtn.onClick.RemoveListener(OnLoginBtnClicked);
+            registerBtn.onClick.RemoveListener(OnRegisterBtnClicked);
         }
 #if UNITY_EDITOR
         private void OnEnable()
@@ -53,9 +61,11 @@ namespace Assets.Content.Script
         }
         public void OnLoginComplete(bool result, string reason)
         {
-            loginBtn.interactable = true;
             if (result == false)
+            {
+                loginBtn.interactable = true;
                 return;
+            }
 
             DataManager.Ins.DatabaseInit();
         }
@@ -77,6 +87,7 @@ namespace Assets.Content.Script
         }
         public override void Show()
         {
+            loginBtn.interactable = true;
             base.Show();
         }
     }

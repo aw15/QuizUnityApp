@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R39M601RFXX",
         "name": "com.SoboroBreadStudio.EthicQuiz",
-        "processId": 13219,
+        "processId": 21284,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -90,6 +90,30 @@
             "deviceId": "R39M601RFXX",
             "name": "com.SoboroBreadStudio.EthicQuiz",
             "processId": 13219,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 16292,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 21937,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 5965,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 21284,
             "exited": false
         }
     ],

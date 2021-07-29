@@ -22,7 +22,7 @@ public class Control : MonoBehaviour
         {
             Vector2 movePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            clickFX.transform.position = movePos;
+            clickFX.transform.position = new Vector3(movePos.x, movePos.y, 10);
             clickParticle.Play();
         }
     }

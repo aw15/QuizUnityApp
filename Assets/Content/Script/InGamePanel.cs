@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using TMPro;
 using UltimateClean;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InGamePanel : IPanel
 {
     [SerializeField]
     CleanButton backBtn;
+    [SerializeField]
+    Image background;
     //! 퀴즈 패널
     [SerializeField]
     GameObject QuizPanel;
@@ -44,7 +47,7 @@ public class InGamePanel : IPanel
     [SerializeField]
     CleanButton completeBtn;
     [SerializeField]
-    GameObject dinoSprite;
+    StarWidget[] stars;
 
     //! 공통
     public AudioClip successSound;
@@ -90,6 +93,7 @@ public class InGamePanel : IPanel
         QuizPanel.SetActive(true);
         DescPanel.SetActive(false);
         completePanel.SetActive(false);
+        background.color = Color.white;
     }
 
     public void OnGameStart(string categoryName) //진입점.
@@ -126,7 +130,7 @@ public class InGamePanel : IPanel
     {
         ChangeToQuizPanel();
     }
-    public void ChangeToDescPanel(bool isAnswer)
+    void ChangeToDescPanel(bool isAnswer)
     {
         if (isAnswer)
         {
@@ -151,7 +155,7 @@ public class InGamePanel : IPanel
         DescPanel.SetActive(true);
     }
 
-    public void ChangeToQuizPanel()
+    void ChangeToQuizPanel()
     {
         currentIndex += 1;
         if (currentIndex < currentQuizList.Count)
@@ -160,15 +164,21 @@ public class InGamePanel : IPanel
             QuizPanel.SetActive(true);
             DescPanel.SetActive(false);
         }
-        else
+        else//! 문제를 모두 푼 경우
         {
-            DescPanel.SetActive(false);
-            completePanel.SetActive(true);
-            dinoSprite.SetActive(true);
-            audioSource.clip = completeSound;
-            audioSource.Play();
-            backBtn.enabled = false;
+            ChangeToCompletePanel();
         }
+    }
+    void ChangeToCompletePanel()
+    {
+        DescPanel.SetActive(false);
+        completePanel.SetActive(true);
+        audioSource.clip = completeSound;
+        audioSource.Play();
+        backBtn.enabled = false;
+        foreach (var star in stars)
+            star.visible = false;
+        StartCoroutine(PlayStars(3));
     }
     public void OnBookmarkClicked()
     {
@@ -184,12 +194,25 @@ public class InGamePanel : IPanel
     }
     public void OnBackBtnClicked()
     {
-        dinoSprite.SetActive(false);
         UIManager.Ins.PopPanel();
     }
     public void OnCompleteBtnClicked()
     {
-        dinoSprite.SetActive(false);
         UIManager.Ins.PopPanel();
+    }
+
+    IEnumerator PlayStars(int count)
+    {
+        completeBtn.enabled = false;
+        Color color = Color.white;
+        ColorUtility.TryParseHtmlString("#262626", out color);
+        background.color = color;
+        stars[0].PlayAnimation();
+        yield return new WaitForSeconds(1);
+        stars[1].PlayAnimation();
+        yield return new WaitForSeconds(1);
+        stars[2].PlayAnimation();
+        yield return new WaitForSeconds(3);
+        completeBtn.enabled = true;
     }
 }
