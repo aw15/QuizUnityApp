@@ -29,7 +29,7 @@ public class InGamePanel : IPanel
 
     //! 해설 패널
     [SerializeField]
-    GameObject DescPanel;
+    GameObject descPanel;
     [SerializeField]
     CleanButton nextBtn;
     [SerializeField]
@@ -37,9 +37,9 @@ public class InGamePanel : IPanel
     [SerializeField]
     TextMeshProUGUI descText;
     [SerializeField]
-    TextMeshProUGUI wrongHighlight;
+    GameObject correctImage;
     [SerializeField]
-    TextMeshProUGUI countUIOnDesc;
+    GameObject wrongImage;
 
     //! 완료 패널
     [SerializeField]
@@ -91,7 +91,7 @@ public class InGamePanel : IPanel
     {
         currentIndex = 0;
         QuizPanel.SetActive(true);
-        DescPanel.SetActive(false);
+        descPanel.SetActive(false);
         completePanel.SetActive(false);
         background.color = Color.white;
     }
@@ -116,7 +116,6 @@ public class InGamePanel : IPanel
             audioSource.Play();
         }
         countUIOnQuiz.text = $"문제 {index + 1}/{currentQuizList.Count}";
-        countUIOnDesc.text = $"문제 {index + 1}/{currentQuizList.Count}";
     }
     public void OnCorrectClicked()
     {
@@ -134,17 +133,15 @@ public class InGamePanel : IPanel
     {
         if (isAnswer)
         {
-            Color color;
-            ColorUtility.TryParseHtmlString("#04CFBC", out color);
-            wrongHighlight.color = color;
-            wrongHighlight.text = "성공!";
             audioSource.clip = successSound;
+            correctImage.SetActive(true);
+            wrongImage.SetActive(false);
         }
         else
         {
-            wrongHighlight.color = Color.red;
-            wrongHighlight.text = "실패!";
             audioSource.clip = failSound;
+            correctImage.SetActive(false);
+            wrongImage.SetActive(true);
         }
 
         audioSource.Play();
@@ -152,7 +149,7 @@ public class InGamePanel : IPanel
         descText.text = currentQuizList[currentIndex].description;
 
         QuizPanel.SetActive(false);
-        DescPanel.SetActive(true);
+        descPanel.SetActive(true);
     }
 
     void ChangeToQuizPanel()
@@ -162,7 +159,7 @@ public class InGamePanel : IPanel
         {
             SelectQuiz(currentIndex);
             QuizPanel.SetActive(true);
-            DescPanel.SetActive(false);
+            descPanel.SetActive(false);
         }
         else//! 문제를 모두 푼 경우
         {
@@ -171,7 +168,7 @@ public class InGamePanel : IPanel
     }
     void ChangeToCompletePanel()
     {
-        DescPanel.SetActive(false);
+        descPanel.SetActive(false);
         completePanel.SetActive(true);
         audioSource.clip = completeSound;
         audioSource.Play();
@@ -204,9 +201,9 @@ public class InGamePanel : IPanel
     IEnumerator PlayStars(int count)
     {
         completeBtn.enabled = false;
-        Color color = Color.white;
-        ColorUtility.TryParseHtmlString("#262626", out color);
-        background.color = color;
+        //Color color = Color.white;
+        //ColorUtility.TryParseHtmlString("#262626", out color);
+        //background.color = color;
         stars[0].PlayAnimation();
         yield return new WaitForSeconds(1);
         stars[1].PlayAnimation();

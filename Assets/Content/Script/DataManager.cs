@@ -57,8 +57,6 @@ public class DataManager : MonoBehaviour
     public QuizDatabase quizDatabase = new QuizDatabase();
     public UnityEvent OnDatabaseLoaded = new UnityEvent();
 
-    public bool isContainAlreadySolved { get; set; }
-
     public static DataManager Ins
     {
         get
@@ -114,18 +112,20 @@ public class DataManager : MonoBehaviour
     {
         try
         {
+            Debug.Log($"save Json {name}");
             string json = JsonUtility.ToJson(instance);
             FileLib.writeStringToFile(json, name);
         }
         catch(Exception ex)
         {
-            Logger.Error(ex);
+            Debug.LogError($"save json fail : {ex}");
         }
 
     }
 
     public static T LoadJson<T>(string name) where T : new()
     {
+        Debug.Log($"Load Json {name}");
         string json = FileLib.readStringFromFile(name);
         T myObject = JsonUtility.FromJson<T>(json);
         return myObject;
@@ -180,10 +180,10 @@ public class DataManager : MonoBehaviour
             //db에서 철학자 리스트 읽어옴.
             if (philosopherReadFail)
             {
+                Debug.Log("Load philosopher data on db");
                 philosophersSnapshot = await db.GetReference("Philosophers").GetValueAsync();
                 if (philosophersSnapshot != null)
                 {
-                    Debug.Log($"{philosophersSnapshot.Value.GetType()}");
                     var list = philosophersSnapshot.GetValue(true) as List<object>;
 
                     philosopherList = new PhilosopherList();
@@ -204,6 +204,7 @@ public class DataManager : MonoBehaviour
             //db에서 퀴즈 데이터 읽어옴.
             if (quizReadFail)
             {
+                Debug.Log("Load quiz data on db");
                 var quizSnapshot = await db.GetReference("QuizData").GetValueAsync();
                 if (quizSnapshot == null)
                 {

@@ -29,7 +29,8 @@ public static void writeStringToFile(string str, string filename)
     {
 #if !WEB_BUILD
         string path = pathForDocumentsFile(filename);
-        FileStream file = new FileStream(path, FileMode.Create, FileAccess.Write);
+        Debug.Log($"[writeStringToFile] {path}");
+        FileStream file = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
 
         StreamWriter sw = new StreamWriter(file);
         sw.WriteLine(str);
@@ -45,7 +46,8 @@ public static void writeStringToFile(string str, string filename)
 
         if (File.Exists(path))
         {
-            FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read);
+            Debug.Log($"[readStringFromFile] {path} exist");
+            FileStream file = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read);
             StreamReader sr = new StreamReader(file);
 
             string str = null;

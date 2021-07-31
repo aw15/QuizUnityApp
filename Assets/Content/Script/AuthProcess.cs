@@ -7,6 +7,7 @@ using UltimateClean;
 using System.Text.RegularExpressions;
 using TMPro;
 using Firebase;
+using System.Threading.Tasks;
 
 public class AuthProcess : MonoBehaviour
 {
@@ -169,5 +170,33 @@ public class AuthProcess : MonoBehaviour
                 break;
         }
         return message;
+    }
+
+    public Task<bool> FindPassword(string email)
+    {
+        var auth = FirebaseAuth.DefaultInstance;
+        Firebase.Auth.FirebaseUser user = auth.CurrentUser;
+        if (user != null)
+        {
+            return auth.SendPasswordResetEmailAsync(email).ContinueWith(task => {
+                if (task.IsCanceled)
+                {
+                    Debug.LogError("[FindPassword] SendPasswordResetEmailAsync was canceled.");
+                    return false;
+                }
+                if (task.IsFaulted)
+                {
+                    Debug.LogError("[FindPassword] SendPasswordResetEmailAsync encountered an error: " + task.Exception);
+                    return false;
+                }
+
+                Debug.Log("Password reset email sent successfully.");
+                return true;
+            });
+        }
+        else
+        {
+            return new Task<bool>(() => { Debug.LogError("[FindPassword] no user");  return false; });
+        }
     }
 }

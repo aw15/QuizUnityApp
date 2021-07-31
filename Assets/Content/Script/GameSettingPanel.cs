@@ -11,18 +11,13 @@ public class GameSettingPanel : IPanel
     public TextMeshProUGUI candidataText;
     public GameObject philosopherPref;
     public GameObject gridLayout;
-    public Toggle containAlreadyQuizToggle;
     private void Start()
     {
         UIManager.Ins.AddPanel("GameSettingPanel", this);
-        containAlreadyQuizToggle.isOn = PlayerPrefs.GetInt(containAlreadyQuizKey, 0) == 0 ? false : true;
-        DataManager.Ins.isContainAlreadySolved = containAlreadyQuizToggle.isOn;
-        containAlreadyQuizToggle.onValueChanged.AddListener(OnContainAlreadyQuizToggleChanged);
         Hide();
     }
     private void OnDestroy()
     {
-        containAlreadyQuizToggle.onValueChanged.RemoveAllListeners();
     }
     void Clear()
     {
@@ -34,11 +29,6 @@ public class GameSettingPanel : IPanel
         UIManager.Ins.AddPanel("GameSettingPanel", this);
     }
 # endif
-    void OnContainAlreadyQuizToggleChanged(bool isOn)
-    {
-        DataManager.Ins.isContainAlreadySolved = isOn;
-        PlayerPrefs.SetInt(containAlreadyQuizKey, isOn ? 1 : 0);
-    }
     public void OnDataLoaded() // ¡¯¿‘¡°.
     {
         Clear();
@@ -48,6 +38,7 @@ public class GameSettingPanel : IPanel
         }
 
         GameObject newObj;
+        int count = 1;
         foreach(var philosopher in DataManager.Ins.philosopherList.data)
         {
             if (DataManager.Ins.quizDatabase.data.ContainsKey(philosopher) == false || DataManager.Ins.quizDatabase.data[philosopher].Count <= 0)
@@ -58,7 +49,8 @@ public class GameSettingPanel : IPanel
             newObj = (GameObject)Instantiate(philosopherPref, gridLayout.transform);
             var btnScriptRef = newObj.GetComponentInChildren<PhilosopherButton>();
             btnScriptRef.categoryName = philosopher;
-            btnScriptRef.color = btnScriptRef.RandomColor();
+            btnScriptRef.number = count.ToString();
+            count += 1;
         }
     }
 
