@@ -14,7 +14,7 @@ public class GameSettingPanel : IPanel
     private void Start()
     {
         UIManager.Ins.AddPanel("GameSettingPanel", this);
-        Hide();
+        //Hide();
     }
     private void OnDestroy()
     {

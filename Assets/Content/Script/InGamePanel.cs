@@ -33,13 +33,13 @@ public class InGamePanel : IPanel
     [SerializeField]
     CleanButton nextBtn;
     [SerializeField]
-    CleanButton bookmarkBtn;
-    [SerializeField]
     TextMeshProUGUI descText;
     [SerializeField]
     GameObject correctImage;
     [SerializeField]
     GameObject wrongImage;
+    [SerializeField]
+    CleanButton bookmarkBtnInDesc;
 
     //! 완료 패널
     [SerializeField]
@@ -48,12 +48,16 @@ public class InGamePanel : IPanel
     CleanButton completeBtn;
     [SerializeField]
     StarWidget[] stars;
+    [SerializeField]
+    TextMeshProUGUI scoreText;
 
     //! 공통
     public AudioClip successSound;
     public AudioClip failSound;
     public AudioClip quizShowSound;
     public AudioClip completeSound;
+    int correctCount = 0;
+    BookmarkComponent bookmarkComponent = new BookmarkComponent();
 
     private AudioSource audioSource;
     // Start is called before the first frame update
@@ -65,10 +69,11 @@ public class InGamePanel : IPanel
     {
         UIManager.Ins.AddPanel("InGamePanel", this);
         Hide();
+
         correctBtn.onClick.AddListener(OnCorrectClicked);
         wrongBtn.onClick.AddListener(OnWrongClicked);
         nextBtn.onClick.AddListener(OnNextClicked);
-        bookmarkBtn.onClick.AddListener(OnBookmarkClicked);
+        bookmarkBtnInDesc.onClick.AddListener(OnBookmarkClicked);
         backBtn.onClick.AddListener(OnBackBtnClicked);
         completeBtn.onClick.AddListener(OnCompleteBtnClicked);
     }
@@ -77,7 +82,7 @@ public class InGamePanel : IPanel
         correctBtn.onClick.RemoveListener(OnCorrectClicked);
         wrongBtn.onClick.RemoveListener(OnWrongClicked);
         nextBtn.onClick.RemoveListener(OnNextClicked);
-        bookmarkBtn.onClick.RemoveListener(OnBookmarkClicked);
+        bookmarkBtnInDesc.onClick.RemoveListener(OnBookmarkClicked);
         backBtn.onClick.RemoveListener(OnBackBtnClicked);
         completeBtn.onClick.RemoveListener(OnCompleteBtnClicked);
     }
@@ -89,11 +94,11 @@ public class InGamePanel : IPanel
 # endif
     void Clear()
     {
+        correctCount = 0;
         currentIndex = 0;
         QuizPanel.SetActive(true);
         descPanel.SetActive(false);
         completePanel.SetActive(false);
-        background.color = Color.white;
     }
 
     public void OnGameStart(string categoryName) //진입점.
@@ -136,6 +141,7 @@ public class InGamePanel : IPanel
             audioSource.clip = successSound;
             correctImage.SetActive(true);
             wrongImage.SetActive(false);
+            correctCount += 1;
         }
         else
         {
@@ -175,11 +181,26 @@ public class InGamePanel : IPanel
         backBtn.enabled = false;
         foreach (var star in stars)
             star.visible = false;
-        StartCoroutine(PlayStars(3));
+
+        float score = correctCount / (float)currentQuizList.Count * 100;
+        scoreText.text = string.Format("{0:0.0}",score) + "점";
+
+        if (score > 80)
+        {
+            StartCoroutine(PlayStars(3));
+        }
+        else if (score > 50)
+        {
+            StartCoroutine(PlayStars(2));
+        }
+        else
+        {
+            StartCoroutine(PlayStars(1));
+        }
     }
     public void OnBookmarkClicked()
     {
-
+        bookmarkComponent.AddBookmark(currentQuizList[currentIndex]);
     }
     public override void Show()
     {
@@ -201,14 +222,34 @@ public class InGamePanel : IPanel
     IEnumerator PlayStars(int count)
     {
         completeBtn.enabled = false;
-        //Color color = Color.white;
-        //ColorUtility.TryParseHtmlString("#262626", out color);
-        //background.color = color;
-        stars[0].PlayAnimation();
+        if (count >= 1)
+        {
+            stars[0].PlayAnimation();
+        }
+        else
+        {
+            stars[0].PlayDisableAnimation();
+        }
         yield return new WaitForSeconds(1);
-        stars[1].PlayAnimation();
+
+        if (count >= 2)
+        {
+            stars[1].PlayAnimation();
+        }
+        else
+        {
+            stars[1].PlayDisableAnimation();
+        }
         yield return new WaitForSeconds(1);
-        stars[2].PlayAnimation();
+
+        if (count >= 3)
+        {
+            stars[2].PlayAnimation();
+        }
+        else
+        {
+            stars[2].PlayDisableAnimation();
+        }
         yield return new WaitForSeconds(3);
         completeBtn.enabled = true;
     }

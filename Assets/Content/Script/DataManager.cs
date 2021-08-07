@@ -57,6 +57,7 @@ public class DataManager : MonoBehaviour
     public QuizDatabase quizDatabase = new QuizDatabase();
     public UnityEvent OnDatabaseLoaded = new UnityEvent();
 
+    BookmarkComponent bookmarkComponent = new BookmarkComponent();
     public static DataManager Ins
     {
         get
@@ -80,6 +81,7 @@ public class DataManager : MonoBehaviour
     void Start()
     {
         philosopherList.data.Sort();
+        bookmarkComponent.LoadOnStart();
     }
     public static void Save<T>(string name, T instance)
     {

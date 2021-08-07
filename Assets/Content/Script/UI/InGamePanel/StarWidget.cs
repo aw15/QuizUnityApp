@@ -7,6 +7,16 @@ public class StarWidget : MonoBehaviour
 {
     public Image starImage;
     public ParticleSystem starParticle;
+    public void PlayDisableAnimation()
+    {
+        StartCoroutine(SetDisableImage());
+    }
+    IEnumerator SetDisableImage()
+    {
+        yield return new WaitForSeconds(2);
+        starImage.enabled = true;
+        starImage.color = Color.black;
+    }
 
     public bool visible 
     {
@@ -21,6 +31,7 @@ public class StarWidget : MonoBehaviour
     }
     IEnumerator PlayStarAnimation()
     {
+        starImage.color = Color.white;
         starImage.enabled = false;
         starParticle.Play();
         yield return new WaitForSeconds(2);
