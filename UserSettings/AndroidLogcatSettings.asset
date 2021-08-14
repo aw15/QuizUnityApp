@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R39M601RFXX",
         "name": "com.SoboroBreadStudio.EthicQuiz",
-        "processId": 19542,
+        "processId": 5169,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -47,24 +47,6 @@
         {
             "deviceId": "R39M601RFXX",
             "name": "com.SoboroBreadStudio.EthicQuiz",
-            "processId": 25962,
-            "exited": true
-        },
-        {
-            "deviceId": "R39M601RFXX",
-            "name": "com.SoboroBreadStudio.EthicQuiz",
-            "processId": 10577,
-            "exited": true
-        },
-        {
-            "deviceId": "R39M601RFXX",
-            "name": "com.SoboroBreadStudio.EthicQuiz",
-            "processId": 12289,
-            "exited": true
-        },
-        {
-            "deviceId": "R39M601RFXX",
-            "name": "com.SoboroBreadStudio.EthicQuiz",
             "processId": 17284,
             "exited": true
         },
@@ -84,12 +66,66 @@
             "deviceId": "R39M601RFXX",
             "name": "com.kakao.talk",
             "processId": 7371,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R39M601RFXX",
             "name": "com.SoboroBreadStudio.EthicQuiz",
             "processId": 19542,
+            "exited": true
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 2049,
+            "exited": true
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.kakao.talk",
+            "processId": 14796,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 11158,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 4824,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 15626,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 31913,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 537,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 28036,
+            "exited": false
+        },
+        {
+            "deviceId": "R39M601RFXX",
+            "name": "com.SoboroBreadStudio.EthicQuiz",
+            "processId": 5169,
             "exited": false
         }
     ],
@@ -143,7 +179,7 @@
         "MemoryGroup": 2,
         "Behavior": 0
     },
-    "m_Filter": "",
+    "m_Filter": "device",
     "m_FilterIsRegularExpression": false,
     "m_SymbolPaths": []
 }

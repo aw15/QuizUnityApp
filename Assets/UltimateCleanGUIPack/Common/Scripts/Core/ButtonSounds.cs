@@ -25,14 +25,20 @@ namespace UltimateClean
 
         public void PlayPressedSound()
         {
-            audioSource.clip = pressedSound;
-            audioSource.Play();
+            if (OptionManager.GetOption(OptionManager.EFlagOption.ButtonSound))
+            {
+                audioSource.clip = pressedSound;
+                audioSource.Play();
+            }
         }
 
         public void PlayRolloverSound()
         {
-            audioSource.clip = rolloverSound;
-            audioSource.Play();
+            if (OptionManager.GetOption(OptionManager.EFlagOption.ButtonSound))
+            {
+                audioSource.clip = rolloverSound;
+                audioSource.Play();
+            }
         }
     }
 }

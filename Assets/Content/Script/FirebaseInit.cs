@@ -8,6 +8,7 @@ public class FirebaseInit : MonoBehaviour
     public FirebaseApp app;
     public UnityEvent OnFirebaseInitialize = new UnityEvent();
     // Start is called before the first frame update
+
     void Awake()
     {
         Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task => {
@@ -30,11 +31,5 @@ public class FirebaseInit : MonoBehaviour
                 // Firebase Unity SDK is not safe to use here.
             }
         });
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

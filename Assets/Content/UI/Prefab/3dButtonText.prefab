@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: -3089467638778428296, guid: 86b38c80852f23446b8b4fa58cb9c014, type: 2}
     - target: {fileID: 5289097439465474376, guid: 08022182f57bd46cb98ca1665b7a42f3, type: 3}
       propertyPath: m_Name
-      value: CompleteBtn
+      value: 3dButtonText
       objectReference: {fileID: 0}
     - target: {fileID: 5289097439465474377, guid: 08022182f57bd46cb98ca1665b7a42f3, type: 3}
       propertyPath: m_Pivot.x
@@ -137,6 +137,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5289097439465474377, guid: 08022182f57bd46cb98ca1665b7a42f3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289097439465474378, guid: 08022182f57bd46cb98ca1665b7a42f3, type: 3}
+      propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8290180075528967172, guid: 08022182f57bd46cb98ca1665b7a42f3, type: 3}

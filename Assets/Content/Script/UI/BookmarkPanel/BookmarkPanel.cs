@@ -8,21 +8,29 @@ public class BookmarkPanel : IPanel
     GameObject content;
     [SerializeField]
     GameObject bookmarkWidgetRef;
+    [SerializeField]
+    GameObject emptyEmphasisObject;
     BookmarkComponent bookmarkComponent = new BookmarkComponent();
     void Start()
     {
-        UIManager.Ins.AddPanel("BookmarkPanel", this);
         Hide();
+    }
+    private void OnDestroy()
+    {
     }
     void Clear()
     {
 
     }
-
-    public void OnDataLoaded() // 진입점.
+    public override void OnBackEvent()
     {
+        UIManager.Ins.PopPanel();
+    }
+    public override void Show() // 진입점
+    {
+        base.Show();
+
         Clear();
-        UIManager.Ins.PushPanel("BookmarkPanel");
         foreach (Transform child in content.transform)
         {
             GameObject.Destroy(child.gameObject);
@@ -36,5 +44,12 @@ public class BookmarkPanel : IPanel
             var scriptRef = newObj.GetComponentInChildren<BookMarkWidget>();
             scriptRef.Initialized(data);
         }
+
+        emptyEmphasisObject.SetActive(bookMarkData.Count == 0);
+    }
+
+    public override string GetPanelName()
+    {
+        return "BookmarkPanel";
     }
 }

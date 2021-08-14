@@ -28,7 +28,7 @@ public class BookMarkWidget : MonoBehaviour
         quiz,
         desc
     }
-    State state;
+    State state = State.quiz;
 
     string[] colorList = { "#042159", "#F28A2E", "#F23827", "#BF548F", "#3449BF" };
     void Start()
@@ -40,6 +40,7 @@ public class BookMarkWidget : MonoBehaviour
         answerBtnImage.color = color;
 
         changeStateButton.onClick.AddListener(OnChangeStateBtnClicked);
+        UpdateUI();
     }
     private void OnDestroy()
     {
@@ -51,7 +52,11 @@ public class BookMarkWidget : MonoBehaviour
         state = State.quiz;
         chapterUI.text = quizData.category;
         quizUI.text = quizData.quiz;
-        descUI.text = quizData .isAnswer? "O , " : "X , " + quizData.description;
+        descUI.text = quizData .isAnswer? "O" : "X";
+        if(false == string.IsNullOrEmpty(quizData.description))
+        {
+            descUI.text += " , " + quizData.description;
+        }
         sourceUI.text = quizData.source;
 
         UpdateUI();

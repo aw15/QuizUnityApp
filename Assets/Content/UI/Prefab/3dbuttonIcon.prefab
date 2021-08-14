@@ -107,6 +107,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 3dbuttonIcon
       objectReference: {fileID: 0}
+    - target: {fileID: 5525734969921066531, guid: 8de3d021640394565b5f7260b5baaf01, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8981503935223465063, guid: 8de3d021640394565b5f7260b5baaf01, type: 3}
       propertyPath: m_SizeDelta.y
       value: -30
@@ -114,6 +118,14 @@ PrefabInstance:
     - target: {fileID: 8981503935223465063, guid: 8de3d021640394565b5f7260b5baaf01, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186798789410948946, guid: 8de3d021640394565b5f7260b5baaf01, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186798789410948946, guid: 8de3d021640394565b5f7260b5baaf01, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8de3d021640394565b5f7260b5baaf01, type: 3}

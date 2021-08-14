@@ -13,7 +13,7 @@ public class StarWidget : MonoBehaviour
     }
     IEnumerator SetDisableImage()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0.5f);
         starImage.enabled = true;
         starImage.color = Color.black;
     }
