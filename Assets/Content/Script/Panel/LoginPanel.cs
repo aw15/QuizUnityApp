@@ -16,8 +16,6 @@ class LoginPanel : IPanel
     [SerializeField]
     UltimateClean.CleanButton findPwBtn;
     [SerializeField]
-    UltimateClean.CleanButton copyrightBtn;
-    [SerializeField]
     Toggle rememberToggle;
     [SerializeField]
     TMP_InputField emailUI;
@@ -37,18 +35,12 @@ class LoginPanel : IPanel
         loginBtn.onClick.AddListener(OnLoginBtnClicked);
         registerBtn.onClick.AddListener(OnRegisterBtnClicked);
         findPwBtn.onClick.AddListener(OnFindPWBtnClicked);
-        copyrightBtn.onClick.AddListener(OnCopyrightBtnClicked);
     }
     private void OnDestroy()
     {
         loginBtn.onClick.RemoveListener(OnLoginBtnClicked);
         registerBtn.onClick.RemoveListener(OnRegisterBtnClicked);
         findPwBtn.onClick.RemoveListener(OnFindPWBtnClicked);
-        copyrightBtn.onClick.RemoveListener(OnCopyrightBtnClicked);
-    }
-    public void OnCopyrightBtnClicked()
-    {
-        UIManager.Ins.PushPanel("CopyrightPanel");
     }
     public void OnFindPWBtnClicked()
     {

@@ -19,6 +19,8 @@ public class SettingPanel : IPanel
     CleanButton saveButton;
     [SerializeField]
     CleanButton backBtn;
+    [SerializeField]
+    UltimateClean.CleanButton copyrightBtn;
 
     private Dictionary<EFlagOption, bool> option;
 
@@ -31,6 +33,7 @@ public class SettingPanel : IPanel
         buttonSoundBtn.onClick.AddListener(OnButtonSoundBtnClicked);
         saveButton.onClick.AddListener(OnSaveOptionBtnClick);
         backBtn.onClick.AddListener(OnBackEvent);
+        copyrightBtn.onClick.AddListener(OnCopyrightBtnClicked);
     }
     private void OnDestroy()
     {
@@ -38,6 +41,7 @@ public class SettingPanel : IPanel
         buttonSoundBtn.onClick.RemoveListener(OnButtonSoundBtnClicked);
         saveButton.onClick.RemoveListener(OnSaveOptionBtnClick);
         backBtn.onClick.RemoveListener(OnBackEvent);
+        copyrightBtn.onClick.RemoveListener(OnCopyrightBtnClicked);
     }
     public override void Show() //¡¯¿‘¡°
     {
@@ -47,7 +51,10 @@ public class SettingPanel : IPanel
         SetImageAlpha(effectSoundBtnImage, option[EFlagOption.EffectSound]);
         SetImageAlpha(buttonSoundBtnImage, option[EFlagOption.ButtonSound]);
     }
-
+    public void OnCopyrightBtnClicked()
+    {
+        UIManager.Ins.PushPanel("CopyrightPanel");
+    }
     void SetImageAlpha(Image imageRef, bool isOn)
     {
         Color color = imageRef.color;
