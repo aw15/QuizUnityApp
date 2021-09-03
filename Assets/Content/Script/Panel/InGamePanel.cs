@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UltimateClean;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class InGamePanel : IPanel
@@ -62,6 +63,10 @@ public class InGamePanel : IPanel
     bool backBlock = false;
     [SerializeField]
     AudioSource audioSource;
+    BestScoreComponent bestScoreComponent = new BestScoreComponent();
+    int stage = -1;
+    int score = 0;
+    public UnityEvent<int, int, bool> onTestCompleted = new UnityEvent<int, int, bool>();
     void Start()
     {
         Hide();
@@ -92,11 +97,11 @@ public class InGamePanel : IPanel
         backBlock = false;
     }
 
-    public void OnGameStart(string categoryName) //진입점.
+    public void OnGameStart(int stage, int startIndex, int lastIndex) //진입점.
     {
         Clear();
-        currentQuizList = DataManager.Ins.quizDatabase.data[categoryName];
-        Utils.Shuffle<DataManager.QuizData>(currentQuizList);
+        this.stage = stage;
+        currentQuizList = DataManager.Ins.quizDatabase.Data.GetRange(startIndex, lastIndex - startIndex + 1);//마지막 미포함
         SelectQuiz(currentIndex);
         correctBtn.enabled = currentQuizList.Count > 0;
         wrongBtn.enabled = currentQuizList.Count > 0;
@@ -107,7 +112,7 @@ public class InGamePanel : IPanel
         if (index < currentQuizList.Count)
         {
             quizText.text = currentQuizList[index].quiz;
-            sourceText.text = currentQuizList[index].source;
+            sourceText.text = "";
             audioSource.clip = quizShowSound;
             audioSource.Play();
         }
@@ -173,6 +178,7 @@ public class InGamePanel : IPanel
 
         float score = correctCount / (float)currentQuizList.Count * 100;
         scoreText.text = string.Format("{0}",(int)score) + "점";
+        this.score = (int)score;
         if (score > 80)
         {
             StartCoroutine(PlayStars(3));
@@ -220,6 +226,12 @@ public class InGamePanel : IPanel
     }
     public void OnCompleteBtnClicked()
     {
+        if (stage > 0)
+        {
+            bool bScoreChange = bestScoreComponent.GetScore(stage) < score;
+            bestScoreComponent.UpdateBestScore(stage, score);
+            onTestCompleted.Invoke(stage, score, bScoreChange);
+        }
         UIManager.Ins.PopPanel();
     }
 

@@ -6,17 +6,20 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class PhilosopherButton : MonoBehaviour
+public class StageButtonScript : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    private TextMeshProUGUI textMesh;
-    [SerializeField]
     private TextMeshProUGUI numberText;
     [SerializeField]
+    private TextMeshProUGUI bestScoreText;
+    [SerializeField]
     private CleanButton buttonRef;
-    public string categoryName { set => textMesh.text = value; get => textMesh.text; }
     public string number { set => numberText.text = value; get => numberText.text; }
+    public string bestScore { set => bestScoreText.text =  $"최고점수 : {value}점"; get => bestScoreText.text; }
+    public int stage = -1;
+    public int startIndex { set; get; }
+    public int lastIndex { set; get; }
 
     private void Start()
     {
@@ -28,6 +31,6 @@ public class PhilosopherButton : MonoBehaviour
         UIManager.Ins.PushPanel("InGamePanel");
         var inGamePanelRef = UIManager.Ins.GetPanel("InGamePanel") as InGamePanel;
         if (inGamePanelRef)
-            inGamePanelRef.OnGameStart(categoryName);
+            inGamePanelRef.OnGameStart(stage, startIndex, lastIndex);
     }
 }

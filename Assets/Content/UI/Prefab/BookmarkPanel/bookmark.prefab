@@ -693,12 +693,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2892441319047591065, guid: 52ee64931a575574cbb63964d2cf12f2, type: 3}
       propertyPath: m_text
-      value: "\uC18C\uD06C\uB77C\uD14C\uC2A4\uB294 \uBC95\uC740 \uACBD\uC6B0\uC5D0
-        \uB530\uB77C\uC11C \uC5B4\uACA8\uC9C8 \uC218 \uC788\uB2E4\uACE0 \uD588\uB2E4."
+      value: "\uD55C\uAD6D \uC815\uBD80\uB294 \uC77C\uBCF8\uAD6D \uC815\uBD80\uC758
+        \uC911\uAC1C\uB97C \uAC70\uCE58\uC9C0 \uC54A\uACE0\uB294 \uB2E4\uB978 \uB098\uB77C\uC640
+        \uC870\uC57D\uC744 \uCCB4\uACB0\uD558\uC9C0 \uBABB\uD558\uBA70, \uD1B5\uAC10\uC774
+        \uC678\uAD50\uC5D0 \uAD00\uD55C \uC0AC\uD56D\uC744 \uAD00\uB9AC\uD55C\uB2E4\uB294
+        \uB0B4\uC6A9\uC744 \uD1B5\uD574 \uC54C \uC218 \uC788\uB2E4. \uC744\uC0AC\uB291\uC57D\uC73C\uB85C
+        \uC6B0\uB9AC\uB098\uB77C\uC758 \uC678\uAD50\uAD8C\uC744 \uBC15\uD0C8\uD55C
+        \uC77C\uBCF8\uC740 1909\uB144\uC5D0 \uCCAD\uACFC \uAC04\uB3C4 \uD611\uC57D\uC744
+        \uCCB4\uACB0\uD558\uC5EC \uAC04\uB3C4\uB97C \uCCAD\uC758 \uC601\uD1A0\uB85C
+        \uC778\uC815\uD558\uC600\uB2E4."
       objectReference: {fileID: 0}
     - target: {fileID: 2892441319047591065, guid: 52ee64931a575574cbb63964d2cf12f2, type: 3}
       propertyPath: m_fontSize
-      value: 110
+      value: 106
       objectReference: {fileID: 0}
     - target: {fileID: 2892441319047591065, guid: 52ee64931a575574cbb63964d2cf12f2, type: 3}
       propertyPath: m_fontAsset
@@ -751,6 +758,10 @@ PrefabInstance:
     - target: {fileID: 5997802459610850358, guid: 52ee64931a575574cbb63964d2cf12f2, type: 3}
       propertyPath: m_Name
       value: Quiz
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997802459610850358, guid: 52ee64931a575574cbb63964d2cf12f2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9013213108429775887, guid: 52ee64931a575574cbb63964d2cf12f2, type: 3}
       propertyPath: m_Pivot.x
@@ -863,11 +874,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2892441319047591065, guid: 52ee64931a575574cbb63964d2cf12f2, type: 3}
       propertyPath: m_text
-      value: "X , \uC545\uBC95\uB3C4 \uBC95\uC774\uB2E4"
+      value: "\uD55C\uAD6D \uC815\uBD80\uB294 \uC77C\uBCF8\uAD6D \uC815\uBD80\uC758
+        \uC911\uAC1C\uB97C \uAC70\uCE58\uC9C0 \uC54A\uACE0\uB294 \uB2E4\uB978 \uB098\uB77C\uC640
+        \uC870\uC57D\uC744 \uCCB4\uACB0\uD558\uC9C0 \uBABB\uD558\uBA70, \uD1B5\uAC10\uC774
+        \uC678\uAD50\uC5D0 \uAD00\uD55C \uC0AC\uD56D\uC744 \uAD00\uB9AC\uD55C\uB2E4\uB294
+        \uB0B4\uC6A9\uC744 \uD1B5\uD574 \uC54C \uC218 \uC788\uB2E4. \uC744\uC0AC\uB291\uC57D\uC73C\uB85C
+        \uC6B0\uB9AC\uB098\uB77C\uC758 \uC678\uAD50\uAD8C\uC744 \uBC15\uD0C8\uD55C
+        \uC77C\uBCF8\uC740 1909\uB144\uC5D0 \uCCAD\uACFC \uAC04\uB3C4 \uD611\uC57D\uC744
+        \uCCB4\uACB0\uD558\uC5EC \uAC04\uB3C4\uB97C \uCCAD\uC758 \uC601\uD1A0\uB85C
+        \uC778\uC815\uD558\uC600\uB2E4."
       objectReference: {fileID: 0}
     - target: {fileID: 2892441319047591065, guid: 52ee64931a575574cbb63964d2cf12f2, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2892441319047591065, guid: 52ee64931a575574cbb63964d2cf12f2, type: 3}
       propertyPath: m_fontSize
@@ -959,11 +978,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9013213108429775887, guid: 52ee64931a575574cbb63964d2cf12f2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 2655.4126
+      value: 2655.4
       objectReference: {fileID: 0}
     - target: {fileID: 9013213108429775887, guid: 52ee64931a575574cbb63964d2cf12f2, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 736.721
+      value: 1022.2307
       objectReference: {fileID: 0}
     - target: {fileID: 9013213108429775887, guid: 52ee64931a575574cbb63964d2cf12f2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -995,11 +1014,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9013213108429775887, guid: 52ee64931a575574cbb63964d2cf12f2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 20.000065
+      value: 19.996
       objectReference: {fileID: 0}
     - target: {fileID: 9013213108429775887, guid: 52ee64931a575574cbb63964d2cf12f2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -73.16641
+      value: 8.6357
       objectReference: {fileID: 0}
     - target: {fileID: 9013213108429775887, guid: 52ee64931a575574cbb63964d2cf12f2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1026,7 +1045,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 9017410104474180639}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 

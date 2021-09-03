@@ -14,6 +14,8 @@ public static class CommonDefines
 
     public static int[] consonantNum = {44032,44620,45208,45796,46384,46972,47560,48148,48736,49324,49912,
                                50500,51088,51676,52264,52852,53440,54028,54616,55204};
+
+    public static readonly int stageQuizCount = 5;
 }
 
 public class WaitUntilForSeconds : CustomYieldInstruction

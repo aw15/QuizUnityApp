@@ -54,22 +54,17 @@ class LoginPanel : IPanel
             PlayerPrefs.SetString(emailKey, emailUI.text);
             PlayerPrefs.SetString(passwordKey, pwUI.text);
         }
-        //AuthProcess.Ins.Login(emailUI.text, pwUI.text); 로그인 기능 비활성화
-        OnLoginComplete(true, "");
-    }
-    public void OnLoginComplete(bool result, string reason)
-    {
-        if (result == false)
-        {
-            loginBtn.interactable = true;
-            return;
-        }
 
         DataManager.Ins.DatabaseInit();
     }
     public void OnDatabaseLoaded()
     {
+        loginBtn.interactable = true;
         UIManager.Ins.PushPanel("GameSettingPanel");
+    }
+    public void OnDatabaseLoadFailed()
+    {
+        loginBtn.interactable = true;
     }
     public void OnRememberToggleChanged(bool isOn)
     {

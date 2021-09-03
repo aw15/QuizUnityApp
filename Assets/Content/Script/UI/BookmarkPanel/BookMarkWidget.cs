@@ -57,7 +57,7 @@ public class BookMarkWidget : MonoBehaviour
         {
             descUI.text += " , " + quizData.description;
         }
-        sourceUI.text = quizData.source;
+        sourceUI.text = "";
 
         UpdateUI();
     }

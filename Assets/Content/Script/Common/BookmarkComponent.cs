@@ -32,7 +32,6 @@ public class BookmarkComponent
         LoadBookmark();
         foreach (var data in bookmarkJsonData.data)
         {
-            Debug.Log(data.category);
             bookmarkData.Add(data);
         }
     }
@@ -42,17 +41,20 @@ public class BookmarkComponent
     }
     public void AddBookmark(DataManager.QuizData quizData)
     {
-        int prevCount = bookmarkData.Count;
-        bookmarkData.Add(quizData);
-        if (prevCount != bookmarkData.Count)
-        {
+        if(false == bookmarkData.Contains(quizData))
+        { 
+            bookmarkData.Add(quizData);
             bookmarkJsonData.data.Add(quizData);
             SaveBookmark(); 
         }
     }
     public void RemoveBookmark(DataManager.QuizData quizData)
     {
-        bookmarkData.Remove(quizData);
+        if (bookmarkData.Contains(quizData))
+        {
+            bookmarkData.Remove(quizData);
+            SaveBookmark();
+        }
     }
     public void SaveBookmark()
     {

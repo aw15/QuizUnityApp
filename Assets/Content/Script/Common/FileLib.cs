@@ -51,7 +51,7 @@ public static void writeStringToFile(string str, string filename)
             StreamReader sr = new StreamReader(file);
 
             string str = null;
-            str = sr.ReadLine();
+            str = sr.ReadToEnd();
 
             sr.Close();
             file.Close();

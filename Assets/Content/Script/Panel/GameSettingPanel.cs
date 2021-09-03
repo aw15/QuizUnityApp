@@ -1,9 +1,7 @@
-using System.Linq;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
 using TMPro;
 using UltimateClean;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameSettingPanel : IPanel
 {
@@ -19,6 +17,9 @@ public class GameSettingPanel : IPanel
     CleanButton settingBtn;
     [SerializeField]
     CleanButton profileBtn;
+    List<StageButtonScript> stageButtonRefs = new List<StageButtonScript>();
+    BestScoreComponent bestScoreComponent = new BestScoreComponent();
+    
     private void Start()
     {
         Hide();
@@ -57,46 +58,40 @@ public class GameSettingPanel : IPanel
             GameObject.Destroy(child.gameObject);
         }
 
+        stageButtonRefs.Clear();
+
         GameObject newObj;
+
         int count = 1;
-        foreach (var philosopher in DataManager.Ins.philosopherList.data)
+        for (int index = 0; ; index += CommonDefines.stageQuizCount)
         {
-            if (DataManager.Ins.quizDatabase.data.ContainsKey(philosopher) == false || DataManager.Ins.quizDatabase.data[philosopher].Count <= 0)
-            {
-                continue;
-            }
+            if (index >= DataManager.Ins.quizDatabase.Data.Count)
+                break;
 
             newObj = (GameObject)Instantiate(philosopherPref, gridLayout.transform);
-            var btnScriptRef = newObj.GetComponentInChildren<PhilosopherButton>();
-            btnScriptRef.categoryName = philosopher;
+            var btnScriptRef = newObj.GetComponentInChildren<StageButtonScript>();
             btnScriptRef.number = count.ToString();
+            btnScriptRef.startIndex = index;
+            btnScriptRef.stage = count;
+            if (index + (CommonDefines.stageQuizCount-1) >= DataManager.Ins.quizDatabase.Data.Count)
+            {
+                btnScriptRef.lastIndex = DataManager.Ins.quizDatabase.Data.Count - 1;
+            }
+            else
+            {
+                btnScriptRef.lastIndex = index + (CommonDefines.stageQuizCount - 1);
+            }
+            btnScriptRef.bestScore = bestScoreComponent.GetScore(count).ToString();
+            stageButtonRefs.Add(btnScriptRef);
             count += 1;
         }
     }
-
-    public void OnSearchPhilosopherChanged()
+    public void OnTestCompleted(int stage, int score, bool bScoreChange)
     {
-        candidataText.text = string.Empty;
-
-        string input = searchInputField.text;
-        if (string.IsNullOrEmpty(input))
-            return;
-
-        var pattern = Utils.HangulSearchPattern(input);
-        var candidataList = DataManager.Ins.philosopherList.data.Where(e => Regex.IsMatch(e.ToString(), pattern));
-
-        foreach (var text in candidataList)
+        if(stage - 1 < stageButtonRefs.Count && bScoreChange)
         {
-            candidataText.text += text + "\r\n";
+            stageButtonRefs[stage - 1].bestScore = score.ToString();
         }
-    }
-
-    public void OnSearchPhilosopherBtnClick()
-    {
-        int index = DataManager.Ins.philosopherList.data.FindIndex((param) => { return param.Equals(searchInputField.text, System.StringComparison.OrdinalIgnoreCase); });
-        Debug.Log(index);
-        if (index < 0)
-            return;
     }
     public override void OnBackEvent()
     {

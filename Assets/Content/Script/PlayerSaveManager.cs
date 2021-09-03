@@ -14,7 +14,7 @@ public class PlayerSaveManager : MonoBehaviour
         database = FirebaseDatabase.DefaultInstance;
     }
 
-    // Update is called once per frame
+    // Update is called once per frameF
     void Update()
     {
         //PlayerPrefs.SetString(PLAYER_KEY, JsonUtility.ToJson(player));
