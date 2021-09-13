@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 public class BookMarkWidget : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class BookMarkWidget : MonoBehaviour
     Image outline;
     [SerializeField]
     Image answerBtnImage;
+    [SerializeField]
+    Image removeBookmarkBtnImage;
     [SerializeField]
     TextMeshProUGUI chapterUI;
     [SerializeField]
@@ -21,8 +24,12 @@ public class BookMarkWidget : MonoBehaviour
     [SerializeField]
     UltimateClean.CleanButton changeStateButton;
     [SerializeField]
+    UltimateClean.CleanButton removeBookmarkButton;
+    [SerializeField]
     TextMeshProUGUI buttonText;
 
+    DataManager.QuizData currentQuizData = new DataManager.QuizData();
+    public UnityEvent OnNeedRefreshPanel = new UnityEvent(); 
     private enum State
     {
         quiz,
@@ -34,21 +41,25 @@ public class BookMarkWidget : MonoBehaviour
     void Start()
     {
         Color color = Color.gray;
-        Debug.Log(Random.Range(0, colorList.Length));
         ColorUtility.TryParseHtmlString(colorList[Random.Range(0, colorList.Length)], out color);
         outline.color = color;
         answerBtnImage.color = color;
+        removeBookmarkBtnImage.color = color;
 
         changeStateButton.onClick.AddListener(OnChangeStateBtnClicked);
+        removeBookmarkButton.onClick.AddListener(OnRemoveBookmarkBtnClicked);
         UpdateUI();
     }
     private void OnDestroy()
     {
         changeStateButton.onClick.RemoveListener(OnChangeStateBtnClicked);
+        removeBookmarkButton.onClick.RemoveListener(OnRemoveBookmarkBtnClicked);
     }
 
     public void Initialized(DataManager.QuizData quizData)
     {
+        currentQuizData = quizData;
+
         state = State.quiz;
         chapterUI.text = quizData.category;
         quizUI.text = quizData.quiz;
@@ -60,6 +71,14 @@ public class BookMarkWidget : MonoBehaviour
         sourceUI.text = "";
 
         UpdateUI();
+    }
+
+    void OnRemoveBookmarkBtnClicked()
+    {
+        if(BookmarkComponent.RemoveBookmark(currentQuizData))
+        {
+            OnNeedRefreshPanel.Invoke();
+        }
     }
     public void OnChangeStateBtnClicked()
     {

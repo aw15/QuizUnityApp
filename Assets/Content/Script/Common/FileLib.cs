@@ -30,7 +30,7 @@ public static void writeStringToFile(string str, string filename)
 #if !WEB_BUILD
         string path = pathForDocumentsFile(filename);
         Debug.Log($"[writeStringToFile] {path}");
-        FileStream file = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
+        FileStream file = new FileStream(path, FileMode.Create, FileAccess.Write);
 
         StreamWriter sw = new StreamWriter(file);
         sw.WriteLine(str);

@@ -10,7 +10,6 @@ public class BookmarkPanel : IPanel
     GameObject bookmarkWidgetRef;
     [SerializeField]
     GameObject emptyEmphasisObject;
-    BookmarkComponent bookmarkComponent = new BookmarkComponent();
     void Start()
     {
         Hide();
@@ -30,6 +29,11 @@ public class BookmarkPanel : IPanel
     {
         base.Show();
 
+        RefreshPanel();
+    }
+
+    private void RefreshPanel()
+    {
         Clear();
         foreach (Transform child in content.transform)
         {
@@ -37,12 +41,13 @@ public class BookmarkPanel : IPanel
         }
 
         GameObject newObj;
-        var bookMarkData = bookmarkComponent.GetBookmarkData();
-        foreach(var data in bookMarkData)
+        var bookMarkData = BookmarkComponent.GetBookmarkData();
+        foreach (var data in bookMarkData)
         {
             newObj = (GameObject)Instantiate(bookmarkWidgetRef, content.transform);
             var scriptRef = newObj.GetComponentInChildren<BookMarkWidget>();
             scriptRef.Initialized(data);
+            scriptRef.OnNeedRefreshPanel.AddListener(RefreshPanel);
         }
 
         emptyEmphasisObject.SetActive(bookMarkData.Count == 0);

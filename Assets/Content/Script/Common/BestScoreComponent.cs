@@ -3,21 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BestScoreComponent
+public static class BestScoreComponent
 {
-    public class QuizDataEqualityComparer : IEqualityComparer<DataManager.QuizData>
-    {
-        public bool Equals(DataManager.QuizData x, DataManager.QuizData y)
-        {
-            return x.quiz == y.quiz;
-        }
-
-        public int GetHashCode(DataManager.QuizData obj)
-        {
-            return obj.quiz.ToString().GetHashCode();
-        }
-    }
-
     [Serializable]
     class BestScoreData
     {
@@ -38,7 +25,7 @@ public class BestScoreComponent
     static BestScoreList bestScoreListFromJson; //LoadOnStart에서 할당
     static Dictionary<int, int> bestScoreDatas = new Dictionary<int, int>();
     static readonly string bestScoreSaveFile = "bestScore.json";
-    public void LoadOnStart()
+    public static void LoadOnStart()
     {
         LoadBestScoreList();
         for(int i = 0; i< bestScoreListFromJson.data.Count; ++i)
@@ -46,11 +33,11 @@ public class BestScoreComponent
             bestScoreDatas.Add(bestScoreListFromJson.data[i].stage, bestScoreListFromJson.data[i].score);
         }
     }
-    public Dictionary<int, int> GetBestScoreDatas()
+    public static Dictionary<int, int> GetBestScoreDatas()
     {
         return bestScoreDatas;
     }
-    public int GetScore(int stage)
+    public static int GetScore(int stage)
     {
         if(bestScoreDatas.ContainsKey(stage))
         {
@@ -58,7 +45,7 @@ public class BestScoreComponent
         }
         return 0;
     }
-    public void UpdateBestScore(int stage, int score)
+    public static void UpdateBestScore(int stage, int score)
     {
         if(bestScoreDatas.ContainsKey(stage))
         {
@@ -81,20 +68,12 @@ public class BestScoreComponent
 
         SaveBestScoreList();
     }
-    public void RemoveBookmark(int stage)
-    {
-        if (bestScoreDatas.ContainsKey(stage))
-        {
-            bestScoreDatas.Remove(stage);
-            SaveBestScoreList();
-        }
-    }
-    public void SaveBestScoreList()
+    public static void SaveBestScoreList()
     {
         DataManager.SaveJson<BestScoreList>(bestScoreSaveFile, bestScoreListFromJson);
     }
 
-    public void LoadBestScoreList()
+    public static void LoadBestScoreList()
     {
         bestScoreListFromJson = DataManager.LoadJson<BestScoreList>(bestScoreSaveFile);
         if (bestScoreListFromJson == null)

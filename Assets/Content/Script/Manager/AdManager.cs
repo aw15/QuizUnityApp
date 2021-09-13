@@ -9,6 +9,8 @@ public class AdManager : MonoBehaviour
 {
     public UnityEvent OnAdLoaded = new UnityEvent();
     private BannerView bannerView;
+    public string androidBannerAdId = "unused";
+    public string iosBannerAdId = "unused";
     // Start is called before the first frame update
     private void Start()
     {
@@ -39,13 +41,14 @@ public class AdManager : MonoBehaviour
 #if UNITY_EDITOR
         string adUnitId = "unused";
 #elif UNITY_ANDROID
-            string adUnitId = "ca-app-pub-3940256099942544/6300978111";
+            string adUnitId = androidBannerAdId;
 #elif UNITY_IPHONE
-            string adUnitId = "ca-app-pub-3940256099942544/2934735716";
+            string adUnitId = iosBannerAdId;
 #else
             string adUnitId = "unexpected_platform";
 #endif
-
+        //string adUnitId = "ca-app-pub-3577338566813432/8447064835"; android
+        //string adUnitId = "ca-app-pub-3940256099942544/2934735716"; ios
         // Clean up banner ad before creating a new one.
         if (bannerView != null)
         {

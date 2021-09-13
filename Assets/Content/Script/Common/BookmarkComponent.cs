@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BookmarkComponent
+public static class BookmarkComponent
 {
     public class QuizDataEqualityComparer : IEqualityComparer<DataManager.QuizData>
     {
@@ -27,7 +27,7 @@ public class BookmarkComponent
     static BookmarkJsonData bookmarkJsonData; //LoadOnStart에서 할당
     static HashSet<DataManager.QuizData> bookmarkData = new HashSet<DataManager.QuizData>(new QuizDataEqualityComparer());
     static readonly string bookmarkSaveFile = "bookmark.json";
-    public void LoadOnStart()
+    public static void LoadOnStart()
     {
         LoadBookmark();
         foreach (var data in bookmarkJsonData.data)
@@ -35,33 +35,42 @@ public class BookmarkComponent
             bookmarkData.Add(data);
         }
     }
-    public HashSet<DataManager.QuizData> GetBookmarkData()
+    public static HashSet<DataManager.QuizData> GetBookmarkData()
     {
         return bookmarkData;
     }
-    public void AddBookmark(DataManager.QuizData quizData)
+    public static bool IsContainBookmark(DataManager.QuizData quizData)
+    {
+        return bookmarkData.Contains(quizData);
+    }
+    public static bool AddBookmark(DataManager.QuizData quizData)
     {
         if(false == bookmarkData.Contains(quizData))
         { 
             bookmarkData.Add(quizData);
             bookmarkJsonData.data.Add(quizData);
-            SaveBookmark(); 
+            SaveBookmark();
+            return true;
         }
+        return false;
     }
-    public void RemoveBookmark(DataManager.QuizData quizData)
+    public static bool RemoveBookmark(DataManager.QuizData quizData)
     {
         if (bookmarkData.Contains(quizData))
         {
             bookmarkData.Remove(quizData);
+            bookmarkJsonData.data.Remove(quizData);
             SaveBookmark();
+            return true;
         }
+        return false;
     }
-    public void SaveBookmark()
+    public static void SaveBookmark()
     {
         DataManager.SaveJson<BookmarkJsonData>(bookmarkSaveFile, bookmarkJsonData);
     }
 
-    public void LoadBookmark()
+    public static void LoadBookmark()
     {
         bookmarkJsonData = DataManager.LoadJson<BookmarkJsonData>(bookmarkSaveFile);
         if (bookmarkJsonData == null)

@@ -114,8 +114,6 @@ public class UIManager : MonoBehaviour
     }
     public void ShowNotification(string title, string text, Notification.InfoType infoType = Notification.InfoType.Normal)
     {
-        Debug.Log(title);
-        Debug.Log(text);
         notificationLauncher.Title = title;
         notificationLauncher.Message = text;
         notificationLauncher.Prefab = notificationPrefs[(int)infoType];

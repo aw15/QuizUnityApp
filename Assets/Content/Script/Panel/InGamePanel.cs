@@ -40,7 +40,7 @@ public class InGamePanel : IPanel
     [SerializeField]
     GameObject wrongImage;
     [SerializeField]
-    CleanButton bookmarkBtnInDesc;
+    CleanButton bookmarkBtn;
 
     //! 완료 패널
     [SerializeField]
@@ -59,14 +59,15 @@ public class InGamePanel : IPanel
     public AudioClip completeSound;
     public AudioClip completeFailSound;
     int correctCount = 0;
-    BookmarkComponent bookmarkComponent = new BookmarkComponent();
     bool backBlock = false;
     [SerializeField]
     AudioSource audioSource;
-    BestScoreComponent bestScoreComponent = new BestScoreComponent();
     int stage = -1;
     int score = 0;
     public UnityEvent<int, int, bool> onTestCompleted = new UnityEvent<int, int, bool>();
+    //타이머
+    float playTime = 0f;
+    float completeTime = 0f;
     void Start()
     {
         Hide();
@@ -74,16 +75,20 @@ public class InGamePanel : IPanel
         correctBtn.onClick.AddListener(OnCorrectClicked);
         wrongBtn.onClick.AddListener(OnWrongClicked);
         nextBtn.onClick.AddListener(OnNextClicked);
-        bookmarkBtnInDesc.onClick.AddListener(OnBookmarkClicked);
+        bookmarkBtn.onClick.AddListener(OnBookmarkClicked);
         backBtn.onClick.AddListener(OnBackEvent);
         completeBtn.onClick.AddListener(OnCompleteBtnClicked);
+    }
+    private void Update()
+    {
+        playTime += Time.deltaTime;
     }
     private void OnDestroy()
     {
         correctBtn.onClick.RemoveListener(OnCorrectClicked);
         wrongBtn.onClick.RemoveListener(OnWrongClicked);
         nextBtn.onClick.RemoveListener(OnNextClicked);
-        bookmarkBtnInDesc.onClick.RemoveListener(OnBookmarkClicked);
+        bookmarkBtn.onClick.RemoveListener(OnBookmarkClicked);
         backBtn.onClick.RemoveListener(OnBackEvent);
         completeBtn.onClick.RemoveListener(OnCompleteBtnClicked);
     }
@@ -95,6 +100,9 @@ public class InGamePanel : IPanel
         descPanel.SetActive(false);
         completePanel.SetActive(false);
         backBlock = false;
+        backBtn.enabled = true;
+        playTime = 0f;
+        completeTime = 0f;
     }
 
     public void OnGameStart(int stage, int startIndex, int lastIndex) //진입점.
@@ -104,8 +112,7 @@ public class InGamePanel : IPanel
         currentQuizList = DataManager.Ins.quizDatabase.Data.GetRange(startIndex, lastIndex - startIndex + 1);//마지막 미포함
         SelectQuiz(currentIndex);
         correctBtn.enabled = currentQuizList.Count > 0;
-        wrongBtn.enabled = currentQuizList.Count > 0;
-        backBtn.enabled = true;
+        wrongBtn.enabled = currentQuizList.Count > 0;      
     }
     private void SelectQuiz(int index)
     {
@@ -130,6 +137,10 @@ public class InGamePanel : IPanel
     {
         ChangeToQuizPanel();
     }
+    void UpdateBookmarkBtnVisibleState()
+    {
+        bookmarkBtn.gameObject.SetActive(!BookmarkComponent.IsContainBookmark(currentQuizList[currentIndex]));
+    }
     void ChangeToDescPanel(bool isAnswer)
     {
         if (isAnswer)
@@ -149,6 +160,8 @@ public class InGamePanel : IPanel
         audioSource.Play();
 
         descText.text = currentQuizList[currentIndex].description;
+
+        UpdateBookmarkBtnVisibleState();
 
         QuizPanel.SetActive(false);
         descPanel.SetActive(true);
@@ -170,6 +183,9 @@ public class InGamePanel : IPanel
     }
     void ChangeToCompletePanel()
     {
+        //플레이 타임 기록
+        completeTime = playTime;
+
         descPanel.SetActive(false);
         completePanel.SetActive(true);
 
@@ -207,7 +223,10 @@ public class InGamePanel : IPanel
     }
     public void OnBookmarkClicked()
     {
-        bookmarkComponent.AddBookmark(currentQuizList[currentIndex]);
+        if(BookmarkComponent.AddBookmark(currentQuizList[currentIndex]))
+        {
+            UpdateBookmarkBtnVisibleState();
+        }
     }
     public override void Show()
     {
@@ -228,9 +247,13 @@ public class InGamePanel : IPanel
     {
         if (stage > 0)
         {
-            bool bScoreChange = bestScoreComponent.GetScore(stage) < score;
-            bestScoreComponent.UpdateBestScore(stage, score);
+            bool bScoreChange = BestScoreComponent.GetScore(stage) < score;
+            BestScoreComponent.UpdateBestScore(stage, score);
             onTestCompleted.Invoke(stage, score, bScoreChange);
+            //플레이 시간 기록
+            MyPlayDataComponent.UpdatePlayTime(completeTime);
+            //정답률 기록
+            MyPlayDataComponent.UpdateAnswerRate(correctCount, currentQuizList.Count);
         }
         UIManager.Ins.PopPanel();
     }

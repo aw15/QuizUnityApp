@@ -139,7 +139,13 @@ public static class Utils
 
         return pattern;
     }
-
+    public static string GetSecondToHMS(int seconds)
+    {
+        int hour = (int)seconds / 3600;
+        int minute = ((int)seconds % 3600) / 60;
+        int second = (int)seconds % 60;
+        return string.Format("{0} : {1:00} : {2:00}", hour, minute, second);
+    }
     public static class ThreadSafeRandom
     {
         [System.ThreadStatic] private static System.Random Local;

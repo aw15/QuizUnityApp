@@ -33,13 +33,10 @@ public class DataManager : MonoBehaviour
     }
 
     static DataManager instance;
-    private static string localQuizDataFile = $@"Data\QuizData.json";
+    private static string localQuizDataFile = $@"Data\QuizData"; //resource 하위에 위치
     public QuizDataFromJson quizDatabase = new QuizDataFromJson();
     public UnityEvent OnDatabaseLoaded = new UnityEvent();
     public UnityEvent OnDatabaseLoadFailed = new UnityEvent();
-
-    BookmarkComponent bookmarkComponent = new BookmarkComponent();
-    BestScoreComponent bestScoreComponent = new BestScoreComponent();
     public static DataManager Ins
     {
         get
@@ -62,8 +59,9 @@ public class DataManager : MonoBehaviour
     }
     void Start()
     {
-        bookmarkComponent.LoadOnStart();
-        bestScoreComponent.LoadOnStart();
+        BookmarkComponent.LoadOnStart();
+        BestScoreComponent.LoadOnStart();
+        MyPlayDataComponent.LoadOnStart();
     }
     public static void Save<T>(string name, T instance)
     {
@@ -106,7 +104,12 @@ public class DataManager : MonoBehaviour
         }
 
     }
-
+    public static T LoadJsonFromString<T>(string jsonData) where T : new()
+    {
+        Debug.Log($"Load Json from string");
+        T myObject = JsonUtility.FromJson<T>(jsonData);
+        return myObject;
+    }
     public static T LoadJson<T>(string name) where T : new()
     {
         Debug.Log($"Load Json {name}");
@@ -118,7 +121,16 @@ public class DataManager : MonoBehaviour
     {
         try
         {
-            quizDatabase = LoadJson<QuizDataFromJson>(Path.Combine(Application.dataPath,localQuizDataFile));
+            if (Application.isEditor)
+            {
+                quizDatabase = LoadJson<QuizDataFromJson>(Path.Combine(Application.dataPath, "Resources", @"Data\QuizData.txt"));
+            }
+            else
+            {
+                Debug.Log($"Load {localQuizDataFile}...");
+                var textData = Resources.Load(localQuizDataFile) as TextAsset;
+                quizDatabase = LoadJsonFromString<QuizDataFromJson>(textData.ToString());
+            }
             OnDatabaseLoaded.Invoke();
             //// Get the root reference location of the database.
             //db = FirebaseDatabase.GetInstance(Firebase.FirebaseApp.DefaultInstance, @"https://soborobreadstudio-default-rtdb.asia-southeast1.firebasedatabase.app/");

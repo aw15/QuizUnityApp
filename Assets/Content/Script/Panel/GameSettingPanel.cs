@@ -18,7 +18,6 @@ public class GameSettingPanel : IPanel
     [SerializeField]
     CleanButton profileBtn;
     List<StageButtonScript> stageButtonRefs = new List<StageButtonScript>();
-    BestScoreComponent bestScoreComponent = new BestScoreComponent();
     
     private void Start()
     {
@@ -81,7 +80,7 @@ public class GameSettingPanel : IPanel
             {
                 btnScriptRef.lastIndex = index + (CommonDefines.stageQuizCount - 1);
             }
-            btnScriptRef.bestScore = bestScoreComponent.GetScore(count).ToString();
+            btnScriptRef.bestScore = BestScoreComponent.GetScore(count).ToString();
             stageButtonRefs.Add(btnScriptRef);
             count += 1;
         }
