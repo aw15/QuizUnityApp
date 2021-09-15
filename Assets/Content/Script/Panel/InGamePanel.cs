@@ -238,7 +238,7 @@ public class InGamePanel : IPanel
     }
     public override void OnBackEvent()
     {
-        if (backBlock)
+        if (backBlock)//게임 완료 시에는 Block
             return;
 
         UIManager.Ins.PopPanel();

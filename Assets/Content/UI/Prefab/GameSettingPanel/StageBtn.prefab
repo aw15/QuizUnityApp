@@ -43,7 +43,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -717.0271, y: 1621.6909}
-  m_SizeDelta: {x: 2122.1526, y: 204.0656}
+  m_SizeDelta: {x: 2322.153, y: 204.0656}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1720233646981287111
 CanvasRenderer:
@@ -238,10 +238,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9604477ea09e7746a7fa1f3387c1249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMesh: {fileID: 1720233647737117665}
   numberText: {fileID: 1478241925401155405}
   bestScoreText: {fileID: 2624416075220340827}
   buttonRef: {fileID: 1720233646981287109}
+  stage: -1
 --- !u!1 &1720233647737117671
 GameObject:
   m_ObjectHideFlags: 0

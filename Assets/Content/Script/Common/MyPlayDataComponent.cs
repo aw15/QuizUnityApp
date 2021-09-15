@@ -31,6 +31,11 @@ public static class MyPlayDataComponent
 
     static string GetAnswerRateString()
     {
+        if(totalAnswerCount == 0)
+        {
+            return "0 %";
+        }
+
         float answerRate = (correctAnswerCount / (float)totalAnswerCount) * 100;
         return $"{(int)answerRate} %";
     }
