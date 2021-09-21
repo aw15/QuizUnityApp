@@ -9,7 +9,7 @@ public class AdManager : MonoBehaviour
 {
     public UnityEvent OnAdLoaded = new UnityEvent();
     private BannerView bannerView;
-    public string androidBannerAdId = "unused";
+    public string androidBannerAdId = "ca-app-pub-3577338566813432/9957919604";
     public string iosBannerAdId = "unused";
     // Start is called before the first frame update
     private void Start()
@@ -47,8 +47,10 @@ public class AdManager : MonoBehaviour
 #else
             string adUnitId = "unexpected_platform";
 #endif
-        //string adUnitId = "ca-app-pub-3577338566813432/8447064835"; android
+        //adUnitId = "ca-app-pub-3577338566813432/8447064835"; //android
         //string adUnitId = "ca-app-pub-3940256099942544/2934735716"; ios
+        //adUnitId = "ca-app-pub-3212738706492790/6113697308";
+        Debug.Log($"adUnitId : {adUnitId}");
         // Clean up banner ad before creating a new one.
         if (bannerView != null)
         {
@@ -86,6 +88,7 @@ public class AdManager : MonoBehaviour
     {
         MonoBehaviour.print(
                 "HandleFailedToReceiveAd event received with message: " + args.LoadAdError.GetMessage());
+        //RequestBanner();
     }
 
     private void HandleAdOpened(object sender, EventArgs args)

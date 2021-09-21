@@ -5,7 +5,7 @@ using UnityEngine;
 public class CenterImageController : MonoBehaviour
 {
     public CenterAnimationWidget[] widgets;
-    bool needStop = false;
+    //bool needStop = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,7 +13,7 @@ public class CenterImageController : MonoBehaviour
     }
     private void OnEnable()
     {
-        needStop = false;
+        //needStop = false;
         for(int i = 0; i < widgets.Length;++i)
         {
             widgets[i].SetActive(false);
@@ -22,7 +22,7 @@ public class CenterImageController : MonoBehaviour
     }
     private void OnDisable()
     {
-        needStop = true;
+        //needStop = true;
         StopCoroutine(Play());
     }
     IEnumerator Play()
