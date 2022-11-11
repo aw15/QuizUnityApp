@@ -48,10 +48,10 @@ public class GameSettingPanel : IPanel
     {
         UIManager.Ins.PushPanel("SettingPanel");
     }
-    public void OnDataLoaded() // ¡¯¿‘¡°.
+    public void OnDataLoaded()
     {
         Clear();
-        adManager.Show();
+        adManager.ShowBannerAd(); 
         foreach (Transform child in gridLayout.transform)
         {
             GameObject.Destroy(child.gameObject);
@@ -95,7 +95,7 @@ public class GameSettingPanel : IPanel
     public override void OnBackEvent()
     {
         UIManager.Ins.PopPanel();
-        adManager.Hide();
+        adManager.HideBannerAd();
     }
     public override string GetPanelName()
     {

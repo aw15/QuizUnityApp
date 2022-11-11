@@ -1,110 +1,146 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using GoogleMobileAds.Api;
 using System;
-using UnityEngine.Events;
-
-public class AdManager : MonoBehaviour
+using UnityEngine;
+using UnityEngine.Advertisements;
+ 
+public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
-    public UnityEvent OnAdLoaded = new UnityEvent();
-    private BannerView bannerView;
-    public string androidBannerAdId = "ca-app-pub-3577338566813432/9957919604";
-    public string iosBannerAdId = "unused";
-    // Start is called before the first frame update
+    [SerializeField] string _androidGameId;
+    [SerializeField] string _iOSGameId;
+    [SerializeField] bool _testMode = true;
+    private string _gameId;
+    
+    
+    //배너
+    [SerializeField] BannerPosition _bannerPosition = BannerPosition.BOTTOM_CENTER;
+
+#if UNITY_IOS
+    [SerializeField] string _iOSAdUnitId = "Banner_iOS";
+#elif UNITY_ANDROID
+    [SerializeField] string _androidAdUnitId = "Banner_Android";
+#endif
+
+    private string _adUnitId = null; // This will remain null for unsupported platforms.
+ 
+    void Awake()
+    {
+        InitializeAds();
+    }
+
     private void Start()
     {
-        // Initialize the Google Mobile Ads SDK.
-        MobileAds.Initialize(initStatus => { });
-
-        RequestBanner();
+        // Set the banner position:
+        Advertisement.Banner.SetPosition(_bannerPosition);
     }
 
-    private void OnDestroy()
+    public void InitializeAds()
     {
-        bannerView.Destroy();
+        _gameId = (Application.platform == RuntimePlatform.IPhonePlayer)
+            ? _iOSGameId
+            : _androidGameId;
+        Advertisement.Initialize(_gameId, _testMode, this);
     }
-
-    public void Hide()
+ 
+    public void OnInitializationComplete()
     {
-        if (bannerView != null)
-            bannerView.Hide();
-    }
-    public void Show()
-    {
-        if (bannerView != null)
-            bannerView.Show();
-    }
-    private void RequestBanner()
-    {
-        // These ad units are configured to always serve test ads.
-#if UNITY_EDITOR
-        string adUnitId = "unused";
+        Debug.Log("Unity Ads initialization complete.");
+        
+        // Get the Ad Unit ID for the current platform:
+#if UNITY_IOS
+        _adUnitId = _iOSAdUnitId;
 #elif UNITY_ANDROID
-            string adUnitId = androidBannerAdId;
-#elif UNITY_IPHONE
-            string adUnitId = iosBannerAdId;
+        _adUnitId = _androidAdUnitId;
 #else
-            string adUnitId = "unexpected_platform";
+        _adUnitId = _androidAdUnitId;
 #endif
-        //adUnitId = "ca-app-pub-3577338566813432/8447064835"; //android
-        //string adUnitId = "ca-app-pub-3940256099942544/2934735716"; ios
-        //adUnitId = "ca-app-pub-3212738706492790/6113697308";
-        Debug.Log($"adUnitId : {adUnitId}");
-        // Clean up banner ad before creating a new one.
-        if (bannerView != null)
+        LoadBanner();
+    }
+ 
+    public void OnInitializationFailed(UnityAdsInitializationError error, string message)
+    {
+        Debug.Log($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
+    }
+    public void OnUnityAdsAdLoaded(string placementId)
+    {
+        Advertisement.Show(placementId, this);
+    }
+
+    public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
+    {
+        Debug.Log($"OnUnityAdsFailedToLoad: {placementId} {error.ToString()} - {message}");
+    }
+
+    public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
+    {
+        Debug.Log("OnUnityAdsShowFailure");
+    }
+
+    public void OnUnityAdsShowStart(string placementId)
+    {
+        Debug.Log("OnUnityAdsShowStart");
+    }
+
+    public void OnUnityAdsShowClick(string placementId)
+    {
+        Debug.Log("OnUnityAdsShowClick");
+    }
+
+    public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
+    {
+        Debug.Log("OnUnityAdsShowComplete");
+    }
+    
+    
+    //배너 광고
+    // Implement a method to call when the Load Banner button is clicked:
+    public void LoadBanner()
+    {
+        // Set up options to notify the SDK of load events:
+        BannerLoadOptions options = new BannerLoadOptions
         {
-            bannerView.Destroy();
-        }
-
-        AdSize adaptiveSize =
-                AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
-
-        bannerView = new BannerView(adUnitId, adaptiveSize, AdPosition.Bottom);
-
-        //Register for ad events.
-        bannerView.OnAdLoaded += HandleAdLoaded;
-        bannerView.OnAdFailedToLoad += HandleAdFailedToLoad;
-        bannerView.OnAdOpening += HandleAdOpened;
-        bannerView.OnAdClosed += HandleAdClosed;
-
-        AdRequest request = new AdRequest.Builder().Build();
-        // Load a banner ad.
-        bannerView.LoadAd(request);
+            loadCallback = OnBannerLoaded,
+            errorCallback = OnBannerError
+        };
+ 
+        // Load the Ad Unit with banner content:
+        Advertisement.Banner.Load(_adUnitId, options);
     }
-
-    #region Banner callback handlers
-
-    private void HandleAdLoaded(object sender, EventArgs args)
+ 
+    // Implement code to execute when the loadCallback event triggers:
+    void OnBannerLoaded()
     {
-        MonoBehaviour.print("HandleAdLoaded event received");
-        MonoBehaviour.print(String.Format("Ad Height: {0}, width: {1}",
-            bannerView.GetHeightInPixels(),
-            bannerView.GetWidthInPixels()));
-        Hide();
+        Debug.Log("Banner loaded");
     }
-
-    private void HandleAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+ 
+    // Implement code to execute when the load errorCallback event triggers:
+    void OnBannerError(string message)
     {
-        MonoBehaviour.print(
-                "HandleFailedToReceiveAd event received with message: " + args.LoadAdError.GetMessage());
-        //RequestBanner();
+        Debug.Log($"Banner Error: {message}");
+        // Optionally execute additional code, such as attempting to load another ad.
     }
-
-    private void HandleAdOpened(object sender, EventArgs args)
+ 
+    // Implement a method to call when the Show Banner button is clicked:
+    public void ShowBannerAd()
     {
-        MonoBehaviour.print("HandleAdOpened event received");
+        // Set up options to notify the SDK of show events:
+        BannerOptions options = new BannerOptions
+        {
+            clickCallback = OnBannerClicked,
+            hideCallback = OnBannerHidden,
+            showCallback = OnBannerShown
+        };
+ 
+        // Show the loaded Banner Ad Unit:
+        Advertisement.Banner.Show(_adUnitId, options);
     }
-
-    private void HandleAdClosed(object sender, EventArgs args)
+ 
+    // Implement a method to call when the Hide Banner button is clicked:
+    public void HideBannerAd()
     {
-        MonoBehaviour.print("HandleAdClosed event received");
+        // Hide the banner:
+        Advertisement.Banner.Hide();
     }
-
-    private void HandleAdLeftApplication(object sender, EventArgs args)
-    {
-        MonoBehaviour.print("HandleAdLeftApplication event received");
-    }
-
-    #endregion
+    
+    void OnBannerClicked() { }
+    void OnBannerShown() { }
+    void OnBannerHidden() { }
 }

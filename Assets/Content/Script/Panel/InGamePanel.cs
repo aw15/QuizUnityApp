@@ -12,7 +12,7 @@ public class InGamePanel : IPanel
     CleanButton backBtn;
     [SerializeField]
     Image background;
-    //! ÄûÁî ÆĞ³Î
+    //! í€´ì¦ˆ íŒ¨ë„
     [SerializeField]
     GameObject QuizPanel;
     [SerializeField]
@@ -28,7 +28,7 @@ public class InGamePanel : IPanel
     List<DataManager.QuizData> currentQuizList = new List<DataManager.QuizData>();
     int currentIndex = 0;
 
-    //! ÇØ¼³ ÆĞ³Î
+    //! í•´ì„¤ íŒ¨ë„
     [SerializeField]
     GameObject descPanel;
     [SerializeField]
@@ -42,7 +42,7 @@ public class InGamePanel : IPanel
     [SerializeField]
     CleanButton bookmarkBtn;
 
-    //! ¿Ï·á ÆĞ³Î
+    //! ì™„ë£Œ íŒ¨ë„
     [SerializeField]
     GameObject completePanel;
     [SerializeField]
@@ -52,7 +52,7 @@ public class InGamePanel : IPanel
     [SerializeField]
     TextMeshProUGUI scoreText;
 
-    //! °øÅë
+    //! ê³µí†µ
     public AudioClip successSound;
     public AudioClip failSound;
     public AudioClip quizShowSound;
@@ -65,7 +65,7 @@ public class InGamePanel : IPanel
     int stage = -1;
     int score = 0;
     public UnityEvent<int, int, bool> onTestCompleted = new UnityEvent<int, int, bool>();
-    //Å¸ÀÌ¸Ó
+    //íƒ€ì´ë¨¸
     float playTime = 0f;
     float completeTime = 0f;
     void Start()
@@ -105,11 +105,11 @@ public class InGamePanel : IPanel
         completeTime = 0f;
     }
 
-    public void OnGameStart(int stage, int startIndex, int lastIndex) //ÁøÀÔÁ¡.
+    public void OnGameStart(int stage, int startIndex, int lastIndex) //ì§„ì…ì .
     {
         Clear();
         this.stage = stage;
-        currentQuizList = DataManager.Ins.quizDatabase.Data.GetRange(startIndex, lastIndex - startIndex + 1);//¸¶Áö¸· ¹ÌÆ÷ÇÔ
+        currentQuizList = DataManager.Ins.quizDatabase.Data.GetRange(startIndex, lastIndex - startIndex + 1);//ë§ˆì§€ë§‰ ë¯¸í¬í•¨
         SelectQuiz(currentIndex);
         correctBtn.enabled = currentQuizList.Count > 0;
         wrongBtn.enabled = currentQuizList.Count > 0;      
@@ -123,7 +123,7 @@ public class InGamePanel : IPanel
             audioSource.clip = quizShowSound;
             audioSource.Play();
         }
-        countUIOnQuiz.text = $"¹®Á¦ {index + 1}/{currentQuizList.Count}";
+        countUIOnQuiz.text = $"ë¬¸ì œ {index + 1}/{currentQuizList.Count}";
     }
     public void OnCorrectClicked()
     {
@@ -176,14 +176,14 @@ public class InGamePanel : IPanel
             QuizPanel.SetActive(true);
             descPanel.SetActive(false);
         }
-        else//! ¹®Á¦¸¦ ¸ğµÎ Ç¬ °æ¿ì
+        else//! ë¬¸ì œë¥¼ ëª¨ë‘ í‘¼ ê²½ìš°
         {
             ChangeToCompletePanel();
         }
     }
     void ChangeToCompletePanel()
     {
-        //ÇÃ·¹ÀÌ Å¸ÀÓ ±â·Ï
+        //í”Œë ˆì´ íƒ€ì„ ê¸°ë¡
         completeTime = playTime;
 
         descPanel.SetActive(false);
@@ -193,7 +193,7 @@ public class InGamePanel : IPanel
             star.visible = false;
 
         float score = correctCount / (float)currentQuizList.Count * 100;
-        scoreText.text = string.Format("{0}",(int)score) + "Á¡";
+        scoreText.text = string.Format("{0}",(int)score) + "ì ";
         this.score = (int)score;
         if (score > 80)
         {
@@ -238,7 +238,7 @@ public class InGamePanel : IPanel
     }
     public override void OnBackEvent()
     {
-        if (backBlock)//°ÔÀÓ ¿Ï·á ½Ã¿¡´Â Block
+        if (backBlock)//ê²Œì„ ì™„ë£Œ ì‹œì—ëŠ” Block
             return;
 
         UIManager.Ins.PopPanel();
@@ -250,9 +250,9 @@ public class InGamePanel : IPanel
             bool bScoreChange = BestScoreComponent.GetScore(stage) < score;
             BestScoreComponent.UpdateBestScore(stage, score);
             onTestCompleted.Invoke(stage, score, bScoreChange);
-            //ÇÃ·¹ÀÌ ½Ã°£ ±â·Ï
+            //í”Œë ˆì´ ì‹œê°„ ê¸°ë¡
             MyPlayDataComponent.UpdatePlayTime(completeTime);
-            //Á¤´ä·ü ±â·Ï
+            //ì •ë‹µë¥  ê¸°ë¡
             MyPlayDataComponent.UpdateAnswerRate(correctCount, currentQuizList.Count);
         }
         UIManager.Ins.PopPanel();

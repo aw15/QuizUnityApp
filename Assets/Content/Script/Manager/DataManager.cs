@@ -1,11 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Firebase.Database;
-using Firebase.Auth;
 using System.IO;
-using Firebase;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using SysTask = System.Threading.Tasks;
@@ -33,7 +29,7 @@ public class DataManager : MonoBehaviour
     }
 
     static DataManager instance;
-    private static string localQuizDataFile = $@"Data\QuizData"; //resource ÇÏÀ§¿¡ À§Ä¡
+    private static string localQuizDataFile = $@"Data\QuizData"; //resource í•˜ìœ„ì— ìœ„ì¹˜
     public QuizDataFromJson quizDatabase = new QuizDataFromJson();
     public UnityEvent OnDatabaseLoaded = new UnityEvent();
     public UnityEvent OnDatabaseLoadFailed = new UnityEvent();
@@ -136,11 +132,11 @@ public class DataManager : MonoBehaviour
             //db = FirebaseDatabase.GetInstance(Firebase.FirebaseApp.DefaultInstance, @"https://soborobreadstudio-default-rtdb.asia-southeast1.firebasedatabase.app/");
             //if (db == null)
             //{
-            //    UIManager.Ins.ShowNotification("DB ¼­¹ö Á¢¼Ó ½ÇÆĞ", "Á¶±İ µÚ¿¡ ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.", Notification.InfoType.Error);
+            //    UIManager.Ins.ShowNotification("DB ì„œë²„ ì ‘ì† ì‹¤íŒ¨", "ì¡°ê¸ˆ ë’¤ì— ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.", Notification.InfoType.Error);
             //    return;
             //}
 
-            ////DB ¹öÀü Ã¼Å©
+            ////DB ë²„ì „ ì²´í¬
             //var versionSnapshot = await db.GetReference("Version").GetValueAsync();
             //var dbVersion = PlayerPrefs.GetString(DB_VERSION_KEY, string.Empty);
             //var remoteDbVersion = versionSnapshot.Value as string;
@@ -149,8 +145,8 @@ public class DataManager : MonoBehaviour
             //DataSnapshot philosophersSnapshot = null;
             //bool philosopherReadFail = false;
             //bool quizReadFail = false;
-            ////LocalFile¿¡ µ¥ÀÌÅÍ°¡ ÀÖ°í
-            ////¹öÀüÀÌ ÀÏÄ¡ÇÒ ¶§
+            ////LocalFileì— ë°ì´í„°ê°€ ìˆê³ 
+            ////ë²„ì „ì´ ì¼ì¹˜í•  ë•Œ
             //if (remoteDbVersion != null && dbVersion.Equals(remoteDbVersion))
             //{
             //    philosopherList.data.Clear();
@@ -175,7 +171,7 @@ public class DataManager : MonoBehaviour
             //        quizReadFail = true;
             //    }
             //}
-            ////db¿¡¼­ Ã¶ÇĞÀÚ ¸®½ºÆ® ÀĞ¾î¿È.
+            ////dbì—ì„œ ì² í•™ì ë¦¬ìŠ¤íŠ¸ ì½ì–´ì˜´.
             //if (philosopherReadFail)
             //{
             //    Debug.Log("Load philosopher data on db");
@@ -193,27 +189,27 @@ public class DataManager : MonoBehaviour
             //    }
             //    else
             //    {
-            //        UIManager.Ins.ShowNotification("DB ¼­¹ö Á¢¼Ó ½ÇÆĞ", "Á¶±İ µÚ¿¡ ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.", Notification.InfoType.Error);
+            //        UIManager.Ins.ShowNotification("DB ì„œë²„ ì ‘ì† ì‹¤íŒ¨", "ì¡°ê¸ˆ ë’¤ì— ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.", Notification.InfoType.Error);
             //        return;
             //    }
 
             //    SaveJson<PhilosopherList>(localPhilosopherDataFile, philosopherList);
             //}
-            ////db¿¡¼­ ÄûÁî µ¥ÀÌÅÍ ÀĞ¾î¿È.
+            ////dbì—ì„œ í€´ì¦ˆ ë°ì´í„° ì½ì–´ì˜´.
             //if (quizReadFail)
             //{
             //    Debug.Log("Load quiz data on db");
             //    var quizSnapshot = await db.GetReference("QuizData").GetValueAsync();
             //    if (quizSnapshot == null)
             //    {
-            //        UIManager.Ins.ShowNotification("DB ¼­¹ö Á¢¼Ó ½ÇÆĞ", "Á¶±İ µÚ¿¡ ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.", Notification.InfoType.Error);
+            //        UIManager.Ins.ShowNotification("DB ì„œë²„ ì ‘ì† ì‹¤íŒ¨", "ì¡°ê¸ˆ ë’¤ì— ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.", Notification.InfoType.Error);
             //        return;
             //    }
 
             //    var items = quizSnapshot.Value as List<object>;
             //    if (items == null)
             //    {
-            //        UIManager.Ins.ShowNotification("DB ¼­¹ö Á¢¼Ó ½ÇÆĞ", "Á¶±İ µÚ¿¡ ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.", Notification.InfoType.Error);
+            //        UIManager.Ins.ShowNotification("DB ì„œë²„ ì ‘ì† ì‹¤íŒ¨", "ì¡°ê¸ˆ ë’¤ì— ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.", Notification.InfoType.Error);
             //        return;
             //    }
 
@@ -223,7 +219,7 @@ public class DataManager : MonoBehaviour
             //        var innerItems = item as List<object>;
             //        if (innerItems == null)
             //        {
-            //            UIManager.Ins.ShowNotification("DB ¼­¹ö Á¢¼Ó ½ÇÆĞ", "Á¶±İ µÚ¿¡ ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.", Notification.InfoType.Error);
+            //            UIManager.Ins.ShowNotification("DB ì„œë²„ ì ‘ì† ì‹¤íŒ¨", "ì¡°ê¸ˆ ë’¤ì— ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.", Notification.InfoType.Error);
             //            return;
             //        }
 
@@ -255,7 +251,7 @@ public class DataManager : MonoBehaviour
             //}
             //OnDatabaseLoaded.Invoke();
 
-            ////ÇöÀç ¹öÀü Á¤º¸ ÀúÀå.
+            ////í˜„ì¬ ë²„ì „ ì •ë³´ ì €ì¥.
             //PlayerPrefs.SetString(DB_VERSION_KEY, remoteDbVersion);
         }
         catch(Exception ex)
