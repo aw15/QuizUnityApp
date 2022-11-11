@@ -95,7 +95,6 @@ public class GameSettingPanel : IPanel
     public override void OnBackEvent()
     {
         UIManager.Ins.PopPanel();
-        adManager.HideBannerAd();
     }
     public override string GetPanelName()
     {

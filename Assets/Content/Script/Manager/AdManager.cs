@@ -16,7 +16,7 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
 #if UNITY_IOS
     [SerializeField] string _iOSAdUnitId = "Banner_iOS";
 #elif UNITY_ANDROID
-    [SerializeField] string _androidAdUnitId = "Banner_Android";
+    [SerializeField] private string _androidAdUnitId = "Banner_Android";
 #endif
 
     private string _adUnitId = null; // This will remain null for unsupported platforms.
@@ -61,7 +61,7 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     }
     public void OnUnityAdsAdLoaded(string placementId)
     {
-        Advertisement.Show(placementId, this);
+        
     }
 
     public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
@@ -109,6 +109,7 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     void OnBannerLoaded()
     {
         Debug.Log("Banner loaded");
+        ShowBannerAd();
     }
  
     // Implement code to execute when the load errorCallback event triggers:
