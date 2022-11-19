@@ -51,7 +51,6 @@ public class GameSettingPanel : IPanel
     public void OnDataLoaded()
     {
         Clear();
-        adManager.ShowBannerAd(); 
         foreach (Transform child in gridLayout.transform)
         {
             GameObject.Destroy(child.gameObject);

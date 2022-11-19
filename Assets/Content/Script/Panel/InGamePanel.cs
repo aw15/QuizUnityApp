@@ -149,17 +149,19 @@ public class InGamePanel : IPanel
             correctImage.SetActive(true);
             wrongImage.SetActive(false);
             correctCount += 1;
+            descText.text = "맞았습니다!";
         }
         else
         {
             audioSource.clip = failSound;
             correctImage.SetActive(false);
             wrongImage.SetActive(true);
+            
+            //맞는 설명의 quiz인 경우 그대로 보여주고 틀린 경우 퀴즈인 경우 description을 보여준다.
+            descText.text = currentQuizList[currentIndex].isAnswer ? currentQuizList[currentIndex].quiz : currentQuizList[currentIndex].description;
         }
 
         audioSource.Play();
-
-        descText.text = currentQuizList[currentIndex].description;
 
         UpdateBookmarkBtnVisibleState();
 

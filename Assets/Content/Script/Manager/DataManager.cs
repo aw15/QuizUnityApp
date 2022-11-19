@@ -4,6 +4,7 @@ using UnityEngine.Events;
 using System.IO;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
+using Content.Script.Manager;
 using SysTask = System.Threading.Tasks;
 
 public class DataManager : MonoBehaviour
@@ -29,7 +30,7 @@ public class DataManager : MonoBehaviour
     }
 
     static DataManager instance;
-    private static string localQuizDataFile = $@"Data\QuizData"; //resource 하위에 위치
+    [SerializeField] private string localQuizDataFile = $@"Data\QuizData"; //resource 하위에 위치, 퀴즈 json 파일
     public QuizDataFromJson quizDatabase = new QuizDataFromJson();
     public UnityEvent OnDatabaseLoaded = new UnityEvent();
     public UnityEvent OnDatabaseLoadFailed = new UnityEvent();
@@ -55,6 +56,8 @@ public class DataManager : MonoBehaviour
     }
     void Start()
     {
+        localQuizDataFile = AppTypeManager.AppSetting.dataFilePath;
+        
         BookmarkComponent.LoadOnStart();
         BestScoreComponent.LoadOnStart();
         MyPlayDataComponent.LoadOnStart();
@@ -115,17 +118,18 @@ public class DataManager : MonoBehaviour
     }
     public void DatabaseInit()
     {
+        Debug.Log("DatabaseInit");
         try
         {
             if (Application.isEditor)
             {
-                quizDatabase = LoadJson<QuizDataFromJson>(Path.Combine(Application.dataPath, "Resources", @"Data\QuizData.txt"));
+                quizDatabase = LoadJson<QuizDataFromJson>(Path.Combine(Application.dataPath, "Resources", localQuizDataFile + ".txt"));
             }
             else
             {
                 Debug.Log($"Load {localQuizDataFile}...");
                 var textData = Resources.Load(localQuizDataFile) as TextAsset;
-                quizDatabase = LoadJsonFromString<QuizDataFromJson>(textData.ToString());
+                if (textData != null) quizDatabase = LoadJsonFromString<QuizDataFromJson>(textData.ToString());
             }
             OnDatabaseLoaded.Invoke();
             //// Get the root reference location of the database.

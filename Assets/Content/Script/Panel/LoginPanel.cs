@@ -1,46 +1,40 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using Content.Script.Manager;
+using Content.Script.UI.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 class LoginPanel : IPanel
 {
-    private const string rememberLoginInfoKey = "RememberLoginInfo";
-    private const string emailKey = "Email";
-    private const string passwordKey = "Password";
-
     [SerializeField]
     UltimateClean.CleanButton loginBtn;
-    [SerializeField]
-    UltimateClean.CleanButton registerBtn;
-    [SerializeField]
-    UltimateClean.CleanButton findPwBtn;
-    [SerializeField]
-    Toggle rememberToggle;
-    [SerializeField]
-    TMP_InputField emailUI;
-    [SerializeField]
-    TMP_InputField pwUI;
+
+    [SerializeField] private CleanBtnColorScript loginBtnColorScript;
+
+    [SerializeField] private Image centerImage1;
+    [SerializeField] private Image centerImage2;
+    [SerializeField] private Image centerImage3;
+    [SerializeField] private TextMeshProUGUI titleText;
+    [SerializeField] private AdManager adManager;
+
+    private bool isFirstLogin = true;
     private void Start()
     {
         UIManager.Ins.PushPanel("LoginPanel");
 
-        rememberToggle.isOn = PlayerPrefs.GetInt(rememberLoginInfoKey, 0) == 0 ? false : true;
-        if (rememberToggle.isOn)
-        {
-            emailUI.text = PlayerPrefs.GetString(emailKey, string.Empty);
-            pwUI.text = PlayerPrefs.GetString(passwordKey, string.Empty);
-        }
-        rememberToggle.onValueChanged.AddListener(OnRememberToggleChanged);
         loginBtn.onClick.AddListener(OnLoginBtnClicked);
-        registerBtn.onClick.AddListener(OnRegisterBtnClicked);
-        findPwBtn.onClick.AddListener(OnFindPWBtnClicked);
+        
+        //AppSetting
+        titleText.text = AppTypeManager.AppSetting.title;
+        centerImage1.sprite = AppTypeManager.AppSetting.titleSprites[0];
+        centerImage2.sprite = AppTypeManager.AppSetting.titleSprites[1];
+        centerImage3.sprite = AppTypeManager.AppSetting.titleSprites[2];
     }
     private void OnDestroy()
     {
         loginBtn.onClick.RemoveListener(OnLoginBtnClicked);
-        registerBtn.onClick.RemoveListener(OnRegisterBtnClicked);
-        findPwBtn.onClick.RemoveListener(OnFindPWBtnClicked);
     }
     public void OnFindPWBtnClicked()
     {
@@ -48,33 +42,38 @@ class LoginPanel : IPanel
     }
     public void OnLoginBtnClicked()
     {
-        loginBtn.interactable = false;
-        if(rememberToggle.isOn)
+        if (isFirstLogin)
         {
-            PlayerPrefs.SetString(emailKey, emailUI.text);
-            PlayerPrefs.SetString(passwordKey, pwUI.text);
+            loginBtn.interactable = false;
+            loginBtnColorScript.SetColor(Color.gray);
+            isFirstLogin = false;
+#if UNITY_EDITOR
+        StartCoroutine(WaitForAdLoaded(0));    
+#else
+        StartCoroutine(WaitForAdLoaded(0.5f));
+#endif
         }
-
-        DataManager.Ins.DatabaseInit();
+        else
+        {
+            UIManager.Ins.PushPanel("GameSettingPanel");
+        }
     }
+    
+    IEnumerator WaitForAdLoaded(float second)
+    {
+        yield return new WaitForSeconds(second);
+        // Get the Ad Unit ID for the current platform:
+        adManager.ShowBannerAd();
+        DataManager.Ins.DatabaseInit();  
+    }
+    
     public void OnDatabaseLoaded()
     {
         loginBtn.interactable = true;
+        loginBtnColorScript.SetDefaultColor();
         UIManager.Ins.PushPanel("GameSettingPanel");
     }
     public void OnDatabaseLoadFailed()
-    {
-        loginBtn.interactable = true;
-    }
-    public void OnRememberToggleChanged(bool isOn)
-    {
-        PlayerPrefs.SetInt(rememberLoginInfoKey, isOn ? 1 : 0);
-    }
-    public void OnRegisterBtnClicked()
-    {
-        UIManager.Ins.panelStack.Push(UIManager.Ins.GetPanel("RegisterPanel"));
-    }
-    public void OnFirebaseInit()
     {
         loginBtn.interactable = true;
     }
